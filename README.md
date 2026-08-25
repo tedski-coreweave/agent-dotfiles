@@ -29,21 +29,28 @@ one directory symlink; nothing else writes there.
 ## Bootstrap (new machine)
 
 1. Install prerequisites: git, node/npm, oh-my-zsh, 1Password CLI (`op`),
-   optionally `pre-commit` + `gitleaks` (brew) for the secrets hook.
-2. `git clone git@github.com:tedski-coreweave/agent-dotfiles.git ~/src/agent-dotfiles`
+   pi (`brew install pi-coding-agent`), and `pre-commit` + `gitleaks`
+   (brew) for the secrets hook.
+2. Authenticate to GitHub (`gh auth login` or an SSH key), then
+   `git clone git@github.com:tedski-coreweave/agent-dotfiles.git ~/src/agent-dotfiles`
 3. `cd ~/src/agent-dotfiles && ./install.sh` (use `--force` if real files
    exist at the targets; originals are kept as `<name>.pre-dotfiles`)
-4. Say yes to the post-steps: npm install (pi extension packages) and the
-   Netskope CA refresh.
-5. `pre-commit install` in this repo (enables the gitleaks hook).
-6. Manual auth, in any order:
+4. Say yes to the post-steps, in the order offered: Netskope CA refresh
+   first (skip on machines without Netskope; the script exits nonzero
+   when no CA is found), then npm install (pi extension packages).
+5. `git config --global core.excludesFile ~/.gitignore` (without this,
+   git ignores the deployed global gitignore; git's default location is
+   ~/.config/git/ignore, not ~/.gitignore)
+6. `pre-commit install` in this repo (enables the gitleaks hook).
+7. Manual auth, in any order:
    - `op signin` (models.json resolves API keys via `!op read` refs)
    - Launch `pi`; provider login creates `~/.pi/agent/auth.json`
    - In pi, `/mcp-auth <server>` for: notion, slack, atlassian,
      glean_default, sourcegraph (GitHub/Datadog have no MCP on purpose;
      use gh and pup)
-   - Trust your working dirs when pi asks (or seed from
-     `pi/agent/trust.json.example`; the real trust.json stays untracked)
+   - Trust your working dirs when pi asks (or copy
+     `pi/agent/trust.json.example` to `~/.pi/agent/trust.json` with your
+     username substituted; the real file stays untracked)
 
 ## Updating
 

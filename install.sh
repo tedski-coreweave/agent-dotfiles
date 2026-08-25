@@ -117,10 +117,21 @@ fi
 
 # Post-steps: prompted, never silent.
 if [[ -t 0 ]]; then
-  read -r -p "Run npm install in ~/.pi/agent/npm? [y/N] " a
-  if [[ "$a" == "y" ]]; then (cd "$HOME/.pi/agent/npm" && npm install); fi
-  read -r -p "Refresh Netskope CA bundle? [y/N] " a
+  # CA refresh must come first: npm install fails behind Netskope
+  # TLS interception without the bundle.
+  read -r -p "Refresh Netskope CA bundle? (skip on non-Netskope machines) [y/N] " a
   if [[ "$a" == "y" ]]; then "$HOME/.pi/refresh-netskope-ca.sh"; fi
+  read -r -p "Run npm install in ~/.pi/agent/npm? [y/N] " a
+  if [[ "$a" == "y" ]]; then
+    (
+      cd "$HOME/.pi/agent/npm"
+      # New shells get this from zsh/agents.zsh; this one may not have it yet.
+      if [[ -f "$HOME/.pi/netskope-ca.pem" ]]; then
+        export NODE_EXTRA_CA_CERTS="$HOME/.pi/netskope-ca.pem"
+      fi
+      npm install
+    )
+  fi
 else
   echo "Non-interactive: skipped post-steps (npm install, netskope CA refresh)."
 fi
