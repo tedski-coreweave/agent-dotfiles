@@ -1,0 +1,19 @@
+{
+  "lastChangelogVersion": "0.84.3",
+  "theme": "dark",
+  "defaultProvider": "anthropic",
+  "defaultModel": "claude-sonnet-5",
+  "defaultThinkingLevel": "medium",
+  "packages": [
+    "npm:pi-parallel-sessions",
+    "npm:pi-mcp-adapter",
+    "npm:pi-subagents",
+    "npm:pi-devin-auth",
+    "npm:pi-rewind"
+  ],
+  "httpIdleTimeoutMs": 30000,
+  "outputPad": 0,
+  "warnings": {
+    "anthropicExtraUsage": false
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "mcpServers": {
+    "notion": {
+      "url": "https://mcp.notion.com/mcp",
+      "auth": "oauth"
+    },
+    "slack": {
+      "url": "https://mcp.slack.com/mcp",
+      "auth": "oauth",
+      "oauth": {
+        "clientId": "1601185624273.8899143856786",
+        "redirectUri": "http://localhost:3118/callback"
+      }
+    },
+    "atlassian": {
+      "url": "https://mcp.atlassian.com/v1/mcp",
+      "auth": "oauth"
+    },
+    "github": {
+      "url": "https://api.githubcopilot.com/mcp",
+      "auth": "oauth"
+    },
+    "glean_default": {
+      "url": "https://coreweave-be.glean.com/mcp/default",
+      "auth": "oauth"
+    },
+    "sourcegraph": {
+      "url": "https://coreweave.sourcegraphcloud.com/.api/mcp",
+      "auth": "oauth"
+    }
+  }
+}

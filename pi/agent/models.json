@@ -1,0 +1,186 @@
+{
+  "providers": {
+    "WandB-Inference": {
+      "baseUrl": "https://api.inference.wandb.ai/v1",
+      "api": "openai-completions",
+      "apiKey": "!op read 'op://Employee/wandb_inference/credential'",
+      "models": [
+        {
+          "id": "microsoft/Phi-4-mini-instruct",
+          "contextWindow": 128000,
+          "maxTokens": 32768
+        },
+        {
+          "id": "JetBrains/Mellum2-12B-A2.5B-Instruct",
+          "contextWindow": 131072,
+          "maxTokens": 32768
+        },
+        {
+          "id": "meta-llama/Llama-3.1-70B-Instruct",
+          "contextWindow": 128000,
+          "maxTokens": 32768
+        },
+        {
+          "id": "Qwen/Qwen3.5-35B-A3B",
+          "contextWindow": 262144,
+          "maxTokens": 32768
+        },
+        {
+          "id": "deepseek-ai/DeepSeek-V3.1",
+          "name": "DeepSeek V3.1",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 161000,
+          "maxTokens": 32768
+        },
+        {
+          "id": "openai/gpt-oss-120b",
+          "name": "GPT-OSS 120B",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 131072,
+          "maxTokens": 32768
+        },
+        {
+          "id": "Qwen/Qwen3-Coder-480B-A35B-Instruct",
+          "name": "Qwen3 Coder 480B",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 262144,
+          "maxTokens": 32768
+        },
+        {
+          "id": "ibm-granite/granite-4.1-8b",
+          "contextWindow": 131072,
+          "maxTokens": 32768
+        },
+        {
+          "id": "meta-llama/Llama-3.1-8B-Instruct",
+          "contextWindow": 128000,
+          "maxTokens": 32768
+        },
+        {
+          "id": "deepseek-ai/DeepSeek-V4-Flash",
+          "contextWindow": 1048576,
+          "maxTokens": 32768
+        },
+        {
+          "id": "moonshotai/Kimi-K2.7-Code",
+          "contextWindow": 262144,
+          "maxTokens": 32768
+        },
+        {
+          "id": "Qwen/Qwen3.6-35B-A3B",
+          "contextWindow": 262144,
+          "maxTokens": 32768
+        },
+        {
+          "id": "zai-org/GLM-5.2",
+          "contextWindow": 262144,
+          "maxTokens": 32768
+        },
+        {
+          "id": "nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B",
+          "contextWindow": 262144,
+          "maxTokens": 32768
+        },
+        {
+          "id": "google/gemma-4-31B-it",
+          "contextWindow": 262144,
+          "maxTokens": 32768
+        },
+        {
+          "id": "moonshotai/Kimi-K2.5",
+          "name": "Kimi K2.5",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 262144,
+          "maxTokens": 32768
+        },
+        {
+          "id": "Qwen/Qwen3.5-27B",
+          "contextWindow": 262144,
+          "maxTokens": 32768
+        },
+        {
+          "id": "zai-org/GLM-5.1",
+          "contextWindow": 202752,
+          "maxTokens": 32768
+        },
+        {
+          "id": "meta-llama/Llama-3.3-70B-Instruct",
+          "contextWindow": 128000,
+          "maxTokens": 32768
+        },
+        {
+          "id": "OpenPipe/Qwen3-14B-Instruct",
+          "contextWindow": 32768,
+          "maxTokens": 16384
+        },
+        {
+          "id": "MiniMaxAI/MiniMax-M3",
+          "contextWindow": 262144,
+          "maxTokens": 32768
+        },
+        {
+          "id": "MiniMaxAI/MiniMax-M2.5",
+          "contextWindow": 196608,
+          "maxTokens": 32768
+        },
+        {
+          "id": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+          "contextWindow": 262144,
+          "maxTokens": 32768
+        },
+        {
+          "id": "nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-FP8",
+          "contextWindow": 262144,
+          "maxTokens": 32768
+        },
+        {
+          "id": "moonshotai/Kimi-K2.6",
+          "contextWindow": 262144,
+          "maxTokens": 32768
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+          "contextWindow": 262144,
+          "maxTokens": 32768
+        },
+        {
+          "id": "openai/gpt-oss-20b",
+          "contextWindow": 131072,
+          "maxTokens": 32768
+        },
+        {
+          "id": "deepseek-ai/DeepSeek-V4-Pro",
+          "contextWindow": 1048576,
+          "maxTokens": 32768
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-Thinking-2507",
+          "name": "Qwen3 235B Thinking",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 262144,
+          "maxTokens": 32768
+        },
+        {
+          "id": "Qwen/Qwen3.6-27B",
+          "contextWindow": 262144,
+          "maxTokens": 32768
+        }
+      ]
+    }
+  }
+}

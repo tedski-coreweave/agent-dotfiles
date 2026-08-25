@@ -1,0 +1,104 @@
+# Ted's userspace agent instructions
+
+Execution contract for all agent sessions on this machine. Project
+AGENTS.md files override where they conflict. Persona and thinking-partner
+behavior live in ~/obsidian/CLAUDE.md and apply only there.
+
+Governing rule: artifacts live at the narrowest scope that outlives
+their use.
+
+## Modes
+
+The first word of my message sets the contract. If absent, infer from
+blast radius and state your mode; I'll correct with one word.
+
+- teach: conversation, exploration, learning. The artifact is my
+  understanding. Touch nothing. Explain mechanisms, point at files and
+  lines. No pressure to converge on action.
+- plan: produce a scoping artifact for future execute work. Read-only
+  research; scouts fine. The artifact must stand alone: intent, scope
+  fence, non-goals, verification. Assume its reader has no context.
+  File it in .plans/<YYYY-MM-DD>-<slug>.md in the working repo. Offer
+  promotion: vault project note if it outlives the PR, Notion if the
+  team should see it. Never auto-post.
+- execute: make the changes for me. Local commits fine. Push, PRs, and
+  external posts always gated. Report when done or blocked.
+- pair: make the changes with me. Small steps, narrate decisions,
+  checkpoint before each nontrivial move.
+
+Promotions: "write it up" (teach -> plan), "make it so" (plan ->
+execute). The approved plan is the scope fence; outside it, ask.
+Modes are per-task. Announce transitions. Subagents inherit the mode.
+Modes never loosen approval gates.
+
+## Gates (invariant)
+
+- Never git push, open/merge a PR, or post to Slack/Notion/Jira/GitHub
+  without my explicit go.
+- Local commits are fine when the task calls for them.
+- Amend/fixup/force-push freely on unmerged branches I own; never on
+  shared or merged history.
+- Never work around IT policy, permissions, or auth failures. Stop and
+  ask. Never request, echo, or embed raw secrets; this machine uses
+  1Password (`op read`) indirection.
+
+## Git
+
+- Branches: tedski/{fix,feat,chore}/<short-name>.
+- Commits: conventional prefix, short subject, body explains the WHY.
+  The diff speaks to the what. Keep git log readable.
+- PR descriptions: intent-level, testing performed, copy/pasteable,
+  not a code walkthrough. Draft PRs by default.
+- Leave the tree clean: nothing unrelated in the diff, never touch
+  submodule pointers unless that is the task.
+
+## Voice
+
+Load the writing-voice skill before drafting any prose artifact
+(commits, PRs, Slack, Notion, docs). Short version: plain words, no
+em-dashes, no hedging filler, no "Importantly/Crucially", have
+opinions, state facts directly. Caveats that matter stay; caveat
+spam goes.
+
+## Verification
+
+Verify IDs, dates, ticket/PR numbers, and names against live tools
+(gh, circleci, acli, pup, MCP) before reporting them. Say what you
+could not verify. Never hand-convert dates or renumber references
+from memory.
+
+## Scope
+
+MVP and YAGNI. Smallest change that solves the stated problem;
+propose follow-ups instead of expanding scope. Readable over clever;
+if you claim something is idiomatic, cite it.
+
+## Machine notes
+
+- macOS, oh-my-zsh. Netskope TLS interception:
+  NODE_EXTRA_CA_CERTS=~/.pi/netskope-ca.pem (refresh via
+  ~/.pi/refresh-netskope-ca.sh).
+- flox/nix envs (notably ~/src/core) break macOS keychain: use
+  DD_TOKEN_STORAGE=file with pup; run Slack-MCP work outside the
+  flox env.
+- ~/src/core git submodule: never `git submodule update --remote
+  --merge`; leave the pointer alone.
+- Tools on hand: gh (+gh-stack), circleci, acli, pup, terraform
+  (HCP, VCS-driven: apply happens on merge), gcloud, kubectl, tilt,
+  flox, orbctl, rg, fd.
+
+## Context pointers
+
+- Glossary (people, channels, quirks): ~/obsidian/06_Metadata/Glossary.md.
+- Work repo: ~/src/core (wandb/core). Its AGENTS.md is canonical
+  there and overrides this file.
+- Notes vault: ~/obsidian. Work-only. Its CLAUDE.md governs inside.
+
+## Config management
+
+Harness configs live in ~/src/agent-dotfiles, symlinked into place
+file-by-file. Drift check: ./install.sh --check. Runtime writes show
+up as git diffs there; review and commit with intent, push only with
+my approval. Never commit auth.json, models-store.json, mcp-oauth/,
+sessions/, or any token-bearing file. Skills deploy to
+~/.agents/skills; promotion from the vault is a move, never a copy.

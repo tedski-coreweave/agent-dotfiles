@@ -1,0 +1,14 @@
+# Deny-list backstop. These are credentials, tokens, transcripts, or
+# machine state. They must NEVER be committed, from any path.
+**/auth.json
+**/models-store.json
+**/mcp-oauth/
+**/mcp-cache.json
+**/sessions/
+**/missions/
+**/run-history.jsonl
+**/node_modules/
+*.pem
+trust.json
+*.pre-dotfiles
+.DS_Store
