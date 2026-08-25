@@ -95,7 +95,15 @@ When a CLI and an MCP server overlap, the CLI wins.
 - Datadog: `pup` (with DD_TOKEN_STORAGE=file). No Datadog MCP.
 - Jira/Confluence: prefer `acli`; the atlassian MCP exists but acli
   can do more. Reach for the MCP only when acli can't.
-- Slack, Notion, Glean, Sourcegraph: MCP is the right tool.
+- Slack, Notion: MCP is the right tool.
+- Glean MCP: enterprise search. Use for "where is this documented /
+  discussed at CoreWeave" questions before declaring something
+  unfindable.
+- Sourcegraph MCP: cross-repo code search. Use when the answer lives
+  in a repo that isn't cloned locally; beats guessing from memory.
+- CODEOWNERS: use the codeowners tool (pi extension), never grep the
+  file. Last-match-wins semantics make grep results wrong often
+  enough that grepping it is a bug.
 
 ## Context pointers
 
