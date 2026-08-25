@@ -16,10 +16,6 @@
       "url": "https://mcp.atlassian.com/v1/mcp",
       "auth": "oauth"
     },
-    "github": {
-      "url": "https://api.githubcopilot.com/mcp",
-      "auth": "oauth"
-    },
     "glean_default": {
       "url": "https://coreweave-be.glean.com/mcp/default",
       "auth": "oauth"

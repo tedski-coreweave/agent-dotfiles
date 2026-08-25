@@ -39,8 +39,9 @@ one directory symlink; nothing else writes there.
 6. Manual auth, in any order:
    - `op signin` (models.json resolves API keys via `!op read` refs)
    - Launch `pi`; provider login creates `~/.pi/agent/auth.json`
-   - In pi, `/mcp-auth <server>` for: notion, slack, atlassian, github,
-     glean_default, sourcegraph
+   - In pi, `/mcp-auth <server>` for: notion, slack, atlassian,
+     glean_default, sourcegraph (GitHub/Datadog have no MCP on purpose;
+     use gh and pup)
    - Trust your working dirs when pi asks (or seed from
      `pi/agent/trust.json.example`; the real trust.json stays untracked)
 

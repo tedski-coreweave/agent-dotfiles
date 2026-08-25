@@ -87,6 +87,16 @@ if you claim something is idiomatic, cite it.
   (HCP, VCS-driven: apply happens on merge), gcloud, kubectl, tilt,
   flox, orbctl, rg, fd.
 
+## Tool selection
+
+When a CLI and an MCP server overlap, the CLI wins.
+
+- GitHub: `gh` (+gh-stack). There is no GitHub MCP here on purpose.
+- Datadog: `pup` (with DD_TOKEN_STORAGE=file). No Datadog MCP.
+- Jira/Confluence: prefer `acli`; the atlassian MCP exists but acli
+  can do more. Reach for the MCP only when acli can't.
+- Slack, Notion, Glean, Sourcegraph: MCP is the right tool.
+
 ## Context pointers
 
 - Glossary (people, channels, quirks): ~/obsidian/06_Metadata/Glossary.md.
