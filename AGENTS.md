@@ -15,13 +15,21 @@ globally).
   `~/.agents/skills` is the only permitted directory symlink.
 - Never commit anything on the `.gitignore` deny-list. If a diff shows a
   token, key, or transcript, stop and tell Ted.
-- Adding a file: place it in the repo, add a `source:target` entry to
-  `LINKS` in `install.sh`, run `./install.sh`, commit both together.
+- Adding a *deployed* file: place it in the repo, add a `source:target`
+  entry to `LINKS` in `install.sh`, run `./install.sh`, commit both
+  together.
+- Repo support files (tests, fixtures, CI config, docs) are not deployed
+  and get no `LINKS` entry. `./install.sh --check` ignores them.
+  Example: `pi/agent/extensions/codeowners/resolve.test.ts` lives beside
+  the deployed extension but only the extension is symlinked.
 - Removing a file: remove the LINKS entry, delete the symlink at the
   target, restore or delete the target as appropriate, then delete from
   the repo. Same commit.
 - Run `./install.sh --check` before and after your change. It must exit 0
   when you finish (or the remaining findings must be the point of the PR).
+- Verify before committing: `./verify.sh` (shell syntax, tracked JSON,
+  codeowners tests, install check). Run the codeowners tests alone with
+  `node --test pi/agent/extensions/codeowners/resolve.test.ts`.
 - Mechanical runtime churn (settings.json lastChangelogVersion) commits
   as `chore: sync runtime drift`.
 - Local commits fine. Push requires Ted's explicit approval. Always.

@@ -17,8 +17,9 @@ export default function (pi: ExtensionAPI) {
     description:
       "Resolve which team(s) own repository paths according to CODEOWNERS, using correct " +
       "last-match-wins semantics. Returns the winning rule per path, and optionally the full " +
-      "chain of matching rules so the result can be verified. Prefer this over grepping " +
-      "CODEOWNERS, which silently misses later overriding rules.",
+      "chain of matching rules so the result can be verified. An empty owner list means a " +
+      "rule explicitly cleared ownership, which is different from no rule matching. Prefer " +
+      "this over grepping CODEOWNERS, which silently misses later overriding rules.",
     promptSnippet: "Resolve CODEOWNERS ownership for repo paths (last-match-wins)",
     promptGuidelines: [
       "Use codeowners to determine path ownership instead of grepping a CODEOWNERS file; " +
@@ -32,8 +33,10 @@ export default function (pi: ExtensionAPI) {
       repoRoot: Type.Optional(
         Type.String({
           description:
-            "Repository root to resolve against. Defaults to searching upward from the " +
-            "current working directory for a CODEOWNERS file.",
+            "Directory inside the repository to resolve against. Defaults to the current " +
+            "working directory. The repository root is detected with git, then only " +
+            ".github/CODEOWNERS, CODEOWNERS, and docs/CODEOWNERS at that root are read, " +
+            "matching the locations GitHub itself supports.",
         }),
       ),
       showChain: Type.Optional(
