@@ -27,6 +27,7 @@ LINKS=(
   "pi/agent/settings.json:$HOME/.pi/agent/settings.json"
   "pi/agent/models.json:$HOME/.pi/agent/models.json"
   "pi/agent/mcp.json:$HOME/.pi/agent/mcp.json"
+  "pi/agent/keybindings.json:$HOME/.pi/agent/keybindings.json"
   "pi/agent/npm/package.json:$HOME/.pi/agent/npm/package.json"
   "pi/agent/npm/package-lock.json:$HOME/.pi/agent/npm/package-lock.json"
   "pi/agent/extensions/codeowners/index.ts:$HOME/.pi/agent/extensions/codeowners/index.ts"
