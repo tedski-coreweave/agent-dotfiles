@@ -1,8 +1,9 @@
 # agent-dotfiles
 
 Versioned agent-harness configuration for Ted Strzalkowski. Captures the
-pi harness today; claude/codex/devin have placeholder dirs and come in
-scope later. Private repo; contains work context, no secrets.
+pi harness today. Other harnesses (claude, codex, devin) get their own
+top-level dir when they come in scope; the layout is per-harness on
+purpose. Private repo; contains work context, no secrets.
 
 The live system uses these files THROUGH symlinks. Edit here (or edit the
 live file; same inode), review the diff here, commit with intent.
@@ -19,7 +20,6 @@ live file; same inode), review the diff here, commit with intent.
 | `skills/` | `~/.agents/skills` (directory symlink) |
 | `zsh/agents.zsh` | `~/.oh-my-zsh/custom/agents.zsh` |
 | `shell/gitignore_global` | `~/.gitignore` |
-| `claude/ codex/ devin/` | placeholders, not yet deployed |
 
 Files are linked individually, never directories, because `~/.pi/agent`
 also holds runtime secrets (auth.json, models-store.json, mcp-oauth/,
