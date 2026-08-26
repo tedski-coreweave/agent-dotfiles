@@ -53,7 +53,11 @@ Use default mode when:
 
 First, verify we're in a git repository by running:
 
-- `test -d .git` to check if .git directory exists
+- `git rev-parse --is-inside-work-tree`
+
+Use this rather than testing for a `.git` directory: in a linked
+worktree `.git` is a file, so a directory test reports "not a repo" in
+exactly the setup the git-worktrees skill encourages.
 
 If not in a git repository, ask the user to specify files to review manually.
 
@@ -63,9 +67,13 @@ If in a git repository, gather information:
 Run: `git rev-parse --abbrev-ref HEAD`
 
 #### Default branch detection:
-1. Try: `git rev-parse --verify main`
-2. If that fails, try: `git rev-parse --verify master`
-3. If that fails, try: `git rev-parse --verify develop`
+
+Resolve it from the remote instead of guessing at local branch names:
+
+1. `gh repo view --json defaultBranchRef -q .defaultBranchRef.name`
+2. If `gh` is unavailable:
+   `git symbolic-ref --short refs/remotes/origin/HEAD | sed 's|^origin/||'`
+3. If both fail, ask. Do not fall back to a hardcoded `main`.
 
 If user specified `--base [branch]` in arguments, use that instead.
 

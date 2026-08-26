@@ -196,17 +196,19 @@ You MUST complete each phase before proceeding to the next.
 
 4. **If Fix Doesn't Work**
    - STOP
-   - Count: How many fixes have you tried?
-   - If < 3: Return to Phase 1, re-analyze with new information
-   - **If ≥ 3: STOP and question the architecture (step 5 below)**
-   - DON'T attempt Fix #4 without architectural discussion
+   - Return to Phase 1 and re-analyze with what the failed fix taught you
+   - Watch for the pattern in step 5. Repeated failures are the signal,
+     not the count itself
 
-5. **If 3+ Fixes Failed: Question Architecture**
+5. **When Fixes Keep Failing: Question the Design**
 
-   **Pattern indicating architectural problem:**
+   **Pattern indicating a design problem:**
    - Each fix reveals new shared state/coupling/problem in different place
    - Fixes require "massive refactoring" to implement
    - Each fix creates new symptoms elsewhere
+
+   Judge by this pattern, not by a fix counter. Two failures that each
+   surface a new coupling say more than five independent typos.
 
    **STOP and question fundamentals:**
    - Is this pattern fundamentally sound?
@@ -230,12 +232,13 @@ If you catch yourself thinking:
 - "Pattern says X but I'll adapt it differently"
 - "Here are the main problems: [lists fixes without investigation]"
 - Proposing solutions before tracing data flow
-- **"One more fix attempt" (when already tried 2+)**
+- **"One more fix attempt" (when previous fixes each moved the problem)**
 - **Each fix reveals new problem in different place**
 
 **ALL of these mean: STOP. Return to Phase 1.**
 
-**If 3+ fixes failed:** Question the architecture (see Phase 4.5)
+**If fixes keep failing and each one surfaces a new coupling:** question
+the design (see Phase 4.5)
 
 ## Common Rationalizations
 
@@ -248,7 +251,7 @@ If you catch yourself thinking:
 | "Multiple fixes at once saves time"          | Can't isolate what worked. Causes new bugs.                             |
 | "Reference too long, I'll adapt the pattern" | Partial understanding guarantees bugs. Read it completely.              |
 | "I see the problem, let me fix it"           | Seeing symptoms ≠ understanding root cause.                             |
-| "One more fix attempt" (after 2+ failures)   | 3+ failures = architectural problem. Question pattern, don't fix again. |
+| "One more fix attempt" (after repeated failures) | Fixes that each reveal a new coupling point at the design, not the symptom. |
 
 ## Quick Reference
 
@@ -410,16 +413,12 @@ When you find a bug:
 
 1. **Trace the data flow** - Where does bad value originate? Where used?
 2. **Map all checkpoints** - List every point data passes through
-3. **Add validation at each layer** - Entry, business, environment, debug
-4. **Test each layer** - Try to bypass layer 1, verify layer 2 catches it
+3. **Validate where it pays** - Add a check at the boundary where bad
+   data enters, and at any layer whose failure would be silent or
+   expensive
+4. **Test the checks you added** - Try to bypass the outer one, verify
+   the inner one catches it
 
-**Don't stop at one validation point.** Add checks at every layer.
-
-## Real-World Impact
-
-From debugging sessions:
-
-- Systematic approach: 15-30 minutes to fix
-- Random fixes approach: 2-3 hours of thrashing
-- First-time fix rate: 95% vs 40%
-- New bugs introduced: Near zero vs common
+Validate deliberately. A check at every layer is ceremony that buries
+the one that matters; skipping the entry boundary is how bad data
+travels. Prefer failing loudly at the boundary over redundant guards.

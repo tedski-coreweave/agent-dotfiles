@@ -33,12 +33,16 @@ history.
 
 ### New Feature Branch
 
+Branch naming follows the userspace convention:
+`tedski/{fix,feat,chore}/<short-name>`.
+
 ```bash
 # Create worktree with new branch
-git worktree add .worktrees/my-feature -b feat/my-feature
+git worktree add .worktrees/my-feature -b tedski/feat/my-feature
 
-# Or specify base branch
-git worktree add .worktrees/my-feature -b feat/my-feature main
+# Base it on the remote default branch rather than assuming main
+base=$(git symbolic-ref --short refs/remotes/origin/HEAD | sed 's|^origin/||')
+git worktree add .worktrees/my-feature -b tedski/feat/my-feature "origin/$base"
 ```
 
 ### From Existing Branch
@@ -48,7 +52,7 @@ git worktree add .worktrees/my-feature -b feat/my-feature main
 git worktree add .worktrees/pr-review origin/fix-bug
 
 # Check out existing local branch
-git worktree add .worktrees/hotfix hotfix/urgent-fix
+git worktree add .worktrees/hotfix tedski/fix/urgent-thing
 ```
 
 ## Directory Structure
@@ -68,15 +72,21 @@ After creating a worktree, you typically need to:
 
 ```bash
 cd .worktrees/my-feature
+```
 
-# Install dependencies
-npm install  # or pnpm install, yarn, etc.
+Follow the repository's own setup instructions (its README or
+AGENTS.md) for dependencies and configuration. A fresh worktree has no
+ignored files, so anything gitignored has to come from that documented
+setup.
 
-# Copy any required env files
-cp ../.env .env.local
+Do not blanket-copy environment files between worktrees. They usually
+hold credentials, and copying them scatters secrets into new
+directories. If a specific file is required, copy that one file
+deliberately, from the main worktree root:
 
-# Verify setup
-npm test
+```bash
+# From .worktrees/<name>, the main worktree root is two levels up
+cp ../../.env.local .env.local
 ```
 
 ## Safety Rules
@@ -91,17 +101,21 @@ git -C .worktrees/my-feature status --porcelain
 git worktree remove .worktrees/my-feature
 
 # Delete the branch after merge (-d is safe, fails if not merged)
-git branch -d feat/my-feature
+git branch -d tedski/feat/my-feature
 ```
 
 ### Removal Decision Matrix
 
-| PR Merged? | Uncommitted Changes? | Action |
-|------------|---------------------|--------|
+| PR merged? | Uncommitted changes? | Action |
+|------------|----------------------|--------|
 | Yes | No | Safe to remove |
-| Yes | Yes | Ask user - changes will be lost |
-| No | No | Do NOT remove - work not preserved |
-| No | Yes | Do NOT remove - active work |
+| Yes | Yes | Ask first, uncommitted changes are lost |
+| No | No | Removing the worktree is safe, committed branch history survives. Keep the branch; do not delete it |
+| No | Yes | Do not remove, active uncommitted work |
+
+Removing a worktree deletes the directory, not the branch. Commits on
+that branch remain in the repository, so an unmerged but clean worktree
+can be removed and recreated later. Only uncommitted work is at risk.
 
 ## Cleaning Up Worktrees
 
@@ -109,7 +123,7 @@ git branch -d feat/my-feature
 
 ```bash
 # 1. Check if work is merged (if using GitHub)
-gh pr list --head feat/my-feature --state merged
+gh pr list --head tedski/feat/my-feature --state merged
 
 # 2. Check for uncommitted changes
 git -C .worktrees/my-feature status --porcelain
@@ -117,8 +131,8 @@ git -C .worktrees/my-feature status --porcelain
 # 3. Remove worktree (only if merged or confirmed with user)
 git worktree remove .worktrees/my-feature
 
-# 4. Delete branch
-git branch -d feat/my-feature
+# 4. Delete branch (-d refuses when unmerged, which is the safety net)
+git branch -d tedski/feat/my-feature
 ```
 
 ### Prune Stale Worktrees
@@ -148,7 +162,7 @@ git branch -D pr-123
 ```bash
 # Main work continues in project root
 # Start new feature in worktree
-git worktree add .worktrees/new-api -b feat/new-api
+git worktree add .worktrees/new-api -b tedski/feat/new-api
 
 # Work on both simultaneously
 code .worktrees/new-api  # Opens new VS Code window

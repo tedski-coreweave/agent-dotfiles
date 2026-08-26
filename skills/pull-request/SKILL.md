@@ -1,184 +1,119 @@
 ---
 name: pull-request
-description: Create a new feature branch, commit changes, push to GitHub, and open a pull request — all in one command. Use when the user asks to open a PR, create a pull request, or push changes for review.
+description: Prepare a branch, commit, and open a draft pull request following Ted's git conventions. Use when asked to open a PR, create a pull request, or push changes for review.
 ---
 
-# Pull Request Command
+# Pull request
 
-Creates a new feature branch, commits changes, pushes to GitHub, and opens a
-pull request - all in one command. Perfect for contributing features or fixes.
+Follows the git and voice rules in ~/.pi/agent/AGENTS.md. Where this
+skill and a repository's own AGENTS.md disagree, the repository wins.
 
-## Task
+## Authorization
 
-Automate the entire pull request workflow: create branch, stage changes, commit
-with descriptive message, push to GitHub, and open PR with proper description.
+Pushing and opening a PR are gated actions.
+
+- "open a PR" / "push this" authorizes exactly that push and that PR,
+  once. It is not standing permission for later pushes.
+- "draft the PR text" / "write the description" authorizes no push and
+  no PR. Return the text and stop.
+- Never open a PR against a repository you were not asked to touch, and
+  never merge.
 
 ## Process
 
-### 1. **Check Prerequisites**
-
-- Ensure git repository exists
-- Check for uncommitted changes to include
-- Verify GitHub CLI (`gh`) is available
-- Get current branch as base branch
-- If already on feature branch, ask: "Create PR from current branch?"
-
-### 2. **Create Feature Branch**
+### 1. Establish the ground truth
 
 ```bash
-# Generate branch name from PR title or use provided name
-# Sanitize branch name: lowercase, replace spaces with hyphens, remove special chars
-branch_name=$(echo "$branch_name" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]/-/g' | sed 's/--*/-/g')
-
-# Check if branch already exists
-if git show-ref --verify --quiet refs/heads/$branch_name; then
-  echo "Branch $branch_name already exists, using alternative name"
-  branch_name="${branch_name}-$(date +%s)"
-fi
-
-# Format: feature/short-description or fix/issue-name
-git checkout -b $branch_name
+git rev-parse --is-inside-work-tree     # works in linked worktrees
+git remote -v                           # confirm the intended remote
+git status --short                      # see everything uncommitted
 ```
 
-### 3. **Stage and Review Changes**
-
-- Show `git status` to user
-- Show `git diff --staged` for review
-- If no staged changes, stage all changes: `git add -A`
-- Confirm changes with user before proceeding
-
-### 4. **Commit Changes**
-
-- Analyze changes to create meaningful commit message
-- Use conventional commits format (feat:, fix:, docs:, etc.)
-- Include detailed commit body if changes are complex
+Resolve the base branch from the remote rather than guessing:
 
 ```bash
-git commit -m "feat: add new feature
-
-- Detail 1
-- Detail 2
-
-🤖 Generated with Claude Code"
+base=$(gh repo view --json defaultBranchRef -q .defaultBranchRef.name)
+# fallback if gh is unavailable:
+# base=$(git symbolic-ref --short refs/remotes/origin/HEAD | sed 's|^origin/||')
 ```
 
-### 5. **Push to GitHub**
+### 2. Branch
+
+Naming: `tedski/{fix,feat,chore}/<short-name>`. Pick the type from the
+change, keep the name short and specific.
 
 ```bash
-# Push with upstream tracking
-git push -u origin feature/[branch-name]
+git switch -c tedski/fix/codeowners-precedence
 ```
 
-### 6. **Create Pull Request**
+If already on a suitable branch, stay on it. Never create a branch off
+unrelated in-progress work without saying so.
 
-Use `gh pr create` with:
+### 3. Stage deliberately
 
-- Descriptive title
-- Detailed body with:
-  - Summary of changes
-  - Testing checklist
-  - Related issues (if any)
-- Set base branch (usually main/master)
+Stage the paths that belong to this change. Never `git add -A`: an
+unrelated file in the diff is a review finding, and the tree may hold
+work that is not yours to commit.
 
 ```bash
-gh pr create \
-  --title "Feature: Add awesome new capability" \
-  --body "$(cat <<'EOF'
-## Summary
-Brief description of what this PR does
+git add path/to/changed pathnumber/two
+git diff --staged        # read this before committing
+git status --short       # confirm what is deliberately left behind
+```
 
-## Changes
-- Added feature X
-- Fixed bug Y
-- Improved performance of Z
+If unrelated changes exist, leave them and say so in your report.
+
+### 4. Commit
+
+Conventional prefix, short subject, body explains the WHY. The diff
+speaks to the what. No "Generated with" footers, no tool attribution,
+no emoji.
+
+```bash
+git commit -m "fix(scope): short imperative subject" -m "Why this change
+exists: the constraint, defect, or decision that forced it. Keep it
+readable in git log."
+```
+
+### 5. Push and open a draft PR
+
+Only with authorization from step 0.
+
+```bash
+git push -u origin HEAD
+gh pr create --draft --base "$base" --title "..." --body "..."
+```
+
+Draft is the default. Mark ready only when asked.
+
+PR body: intent-level, copy/pasteable, not a code walkthrough.
+
+```markdown
+## What
+
+One or two sentences on the change at intent level.
+
+## Why
+
+The motivation. Link the issue, ticket, or failure that prompted it.
 
 ## Testing
-- [ ] Tested locally
-- [ ] All tests pass
-- [ ] Documentation updated
 
-## Screenshots
-(if applicable)
-
-🤖 Generated with [Claude Code](https://claude.ai/code)
-EOF
-)" \
-  --base main
+What you actually ran, and the result. Say what you did not verify.
 ```
 
-### 7. **Provide Next Steps**
+No checkbox scaffolding you did not complete. No screenshots section
+when there are no screenshots.
 
-- Show PR URL
-- Remind about review process
-- Suggest next actions (request review, add labels, etc.)
+### 6. Report back
 
-## Arguments
+Give the PR URL, the branch, what was staged, and anything left
+uncommitted on purpose.
 
-- **Optional**: Branch name (auto-generated from changes if not provided)
-- **Optional**: PR title (analyzed from changes if not provided)
-- **Optional**: Target branch (defaults to main/master)
+## Failure modes
 
-## Example Usage
-
-```bash
-# Auto-generate branch and PR from changes
-/pull-request
-
-# Specify branch name
-/pull-request feature/add-auth
-
-# Full specification
-/pull-request fix/bug-123 "Fix: Resolve authentication timeout issue" develop
-```
-
-## Output Example
-
-```
-📝 Analyzing changes...
-🌿 Creating branch: feature/add-download-command
-✅ Committed: feat: add download-attachment command
-📤 Pushed to origin
-🔗 Pull Request created: https://github.com/user/repo/pull/42
-
-Next steps:
-- Request review from team members
-- Add relevant labels
-- Link related issues
-```
-
-## Branch Naming Conventions
-
-- **Features**: `feature/description`
-- **Fixes**: `fix/issue-or-description`
-- **Documentation**: `docs/what-updated`
-- **Refactoring**: `refactor/what-changed`
-- **Performance**: `perf/optimization`
-- **Tests**: `test/what-tested`
-
-## Commit Message Format
-
-Follow conventional commits:
-
-- `feat:` New feature
-- `fix:` Bug fix
-- `docs:` Documentation only
-- `style:` Formatting, missing semicolons, etc.
-- `refactor:` Code change that neither fixes a bug nor adds a feature
-- `perf:` Performance improvement
-- `test:` Adding missing tests
-- `chore:` Changes to build process or auxiliary tools
-
-## Safety Features
-
-- Confirm before pushing if changes are large
-- Show diff before committing
-- Verify PR description before creating
-- Check if PR already exists for branch
-- Handle merge conflicts gracefully
-
-## Error Handling
-
-- If no changes: "No changes to create PR"
-- If already on feature branch: Ask if should create PR from current branch
-- If PR exists: Show existing PR URL
-- If push fails: Check permissions and remote settings
+- Push rejected or auth fails: stop and report. Never work around
+  permissions or rewrite shared history to force it through.
+- PR already exists for the branch: report the existing URL instead of
+  opening a second one.
+- Base branch resolution fails: ask rather than defaulting to `main`.
