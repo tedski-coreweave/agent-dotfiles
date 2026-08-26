@@ -15,11 +15,15 @@ catalog](https://docs.wandb.ai/inference/models).
 
 | Workload | Anthropic | OpenAI Codex | W&B Inference |
 | --- | --- | --- | --- |
-| Daily driver (configured default) | claude-sonnet-5, thinking medium | gpt-5.5 | GLM-5.2 |
+| Daily driver | claude-sonnet-5, thinking medium | gpt-5.5, gpt-5.6-terra | GLM-5.2 |
 | Long-horizon agentic coding (escalation) | claude-opus-5, thinking high/xhigh | gpt-5.6-sol, gpt-5.6-terra | Kimi-K2.7-Code (262K ctx, purpose-built per W&B), MiniMax-M3 (262K ctx, accepts images) |
 | Cross-family second opinion (adversarial-review) | sonnet/opus when the author was codex | gpt-5.6-terra when the author was anthropic | Kimi-K2.7-Code or GLM-5.2 as a third leg |
 | Very large context analysis | — | — | DeepSeek-V4-Pro (1M-class context per W&B docs) |
 | Cheap helper chores (naming, summaries, glue) | claude-haiku-4-5 | gpt-5.4-mini | Qwen3.5-35B-A3B, gpt-oss-120b |
+
+The actual configured default lives in `pi/agent/settings.json` and is
+not restated here; restating config in prose is how docs drift into
+lying.
 
 ## Serving differences that matter
 

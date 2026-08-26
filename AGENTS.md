@@ -34,7 +34,8 @@ globally).
   when you finish (or the remaining findings must be the point of the PR).
 - Verify before committing: `./verify.sh` (shell syntax, tracked JSON,
   codeowners tests, install check). Run the codeowners tests alone with
-  `node --test pi/agent/extensions/codeowners/resolve.test.ts`.
+  `./scripts/test-codeowners.sh` (version-aware; direct `node --test`
+  fails on pre-23 Node).
 - Mechanical runtime churn (settings.json lastChangelogVersion) commits
   as `chore: sync runtime drift`.
 - Local commits fine. Push requires Ted's explicit approval. Always.
