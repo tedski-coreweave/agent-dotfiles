@@ -14,6 +14,11 @@ set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# git reads $XDG_CONFIG_HOME/git/ignore when that var is set, else
+# ~/.config/git/ignore. The fragment link and the generator must resolve
+# identically or a set XDG_CONFIG_HOME orphans our own fragment.
+CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+
 # Allowlist: "repo-relative-source:absolute-target".
 # Adding a file to the repo means adding it here too, then rerunning install.
 LINKS=(
@@ -29,7 +34,7 @@ LINKS=(
   "pi/agent/extensions/attention-notify.ts:$HOME/.pi/agent/extensions/attention-notify.ts"
   "skills:$HOME/.agents/skills"
   "zsh/agents.zsh:$HOME/.oh-my-zsh/custom/agents.zsh"
-  "shell/gitignore.d/50-agents:$HOME/.config/git/ignore.d/50-agents"
+  "shell/gitignore.d/50-agents:$CONFIG_HOME/git/ignore.d/50-agents"
 )
 
 MODE="install"
@@ -113,10 +118,8 @@ done
 # fragments so multiple repos can contribute patterns without fighting over
 # one file. This repo contributes 50-agents; numbered prefixes control
 # concatenation order, which matters because gitignore is last-pattern-wins.
-# git reads $XDG_CONFIG_HOME/git/ignore when that var is set, else
-# ~/.config/git/ignore; track the same resolution or ignores silently die.
-IGNORE_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/git/ignore.d"
-IGNORE_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/git/ignore"
+IGNORE_DIR="$CONFIG_HOME/git/ignore.d"
+IGNORE_FILE="$CONFIG_HOME/git/ignore"
 
 generate_ignore() {
   echo "# GENERATED from ${IGNORE_DIR}/* by install.sh (any contributing repo)."
