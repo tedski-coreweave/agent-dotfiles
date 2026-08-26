@@ -41,6 +41,12 @@ else
     pi/agent/extensions/codeowners/resolve.test.ts
 fi
 
+# Extension typecheck needs devDependencies; install them once, quietly.
+if [[ ! -d node_modules ]]; then
+  step "npm install (dev deps)" npm install --no-audit --no-fund --silent
+fi
+step "extension typecheck" npm run --silent check:extensions
+
 step "install check" ./install.sh --check
 
 if [[ "$failures" -gt 0 ]]; then

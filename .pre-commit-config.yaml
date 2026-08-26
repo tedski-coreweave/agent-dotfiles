@@ -21,6 +21,13 @@ repos:
         files: \.json$
         exclude: ^pi/agent/npm/package-lock\.json$
 
+      - id: extension-typecheck
+        name: extension typecheck
+        entry: npm run --silent check:extensions
+        language: system
+        pass_filenames: false
+        files: ^(pi/agent/extensions/.*\.ts|tsconfig\.extensions\.json)$
+
       - id: codeowners-tests
         name: codeowners tests
         entry: node --test pi/agent/extensions/codeowners/resolve.test.ts
