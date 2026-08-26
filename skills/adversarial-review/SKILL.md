@@ -36,6 +36,9 @@ from genuine disagreement; a reviewer that rubber-stamps is waste.
 - Reviewers never edit. They report; the author changes.
 - Reviewer and author must be different contexts. An agent reviewing
   its own fresh output finds what it already believed.
+- Prefer reviewers with independent angles (correctness, scope creep,
+  failure modes, portability) over duplicate generalists; overlap
+  wastes tokens, independence finds bugs.
 - Disagreement between reviewers is signal, not noise; surface it
   instead of averaging it away.
 - Verbatim means verbatim. If a finding is embarrassing, that's the

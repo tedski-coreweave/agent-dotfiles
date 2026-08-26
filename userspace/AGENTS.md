@@ -140,6 +140,14 @@ When a CLI and an MCP server overlap, the CLI wins.
   there and overrides this file.
 - Notes vault: ~/obsidian. Work-only. Its CLAUDE.md governs inside.
 
+## Encoding corrections
+
+When I give you the same correction twice, propose encoding it at the
+right tier (this file, a skill, the glossary, the repo's AGENTS.md)
+instead of accepting chat-only correction forever. Prefer a mechanical
+encoding (a check, a hook, a script) over another sentence of
+instruction; prose drifts, checks fail loudly.
+
 ## Config management
 
 Harness configs live in ~/src/agent-dotfiles, symlinked into place
