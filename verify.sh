@@ -21,7 +21,8 @@ step() {
   fi
 }
 
-step "shell syntax" bash -n install.sh pi/refresh-netskope-ca.sh verify.sh
+step "shell syntax" bash -n install.sh pi/refresh-netskope-ca.sh verify.sh \
+  scripts/test-codeowners.sh
 
 json_files=(
   pi/agent/settings.json
@@ -33,13 +34,7 @@ json_files=(
 )
 step "tracked json" jq empty "${json_files[@]}"
 
-# node >= 23 strips TypeScript types natively; older versions need the flag.
-if node -e 'process.exit(Number(process.versions.node.split(".")[0]) >= 23 ? 0 : 1)'; then
-  step "codeowners tests" node --test pi/agent/extensions/codeowners/resolve.test.ts
-else
-  step "codeowners tests" node --experimental-strip-types --test \
-    pi/agent/extensions/codeowners/resolve.test.ts
-fi
+step "codeowners tests" ./scripts/test-codeowners.sh
 
 # Extension typecheck needs devDependencies; install them once, quietly.
 if [[ ! -d node_modules ]]; then

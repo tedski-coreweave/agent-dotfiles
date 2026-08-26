@@ -29,7 +29,8 @@ one directory symlink; nothing else writes there.
 
 ## Bootstrap (new machine)
 
-1. Install prerequisites: git, node/npm, oh-my-zsh, 1Password CLI (`op`),
+1. Install prerequisites: git, node/npm (Node 23+ preferred; older
+   versions work via a fallback flag), oh-my-zsh, 1Password CLI (`op`),
    pi (`brew install pi-coding-agent`), and `pre-commit` + `gitleaks`
    (brew) for the secrets hook.
 2. Authenticate to GitHub (`gh auth login` or an SSH key), then

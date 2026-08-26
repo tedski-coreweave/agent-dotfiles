@@ -30,7 +30,7 @@ repos:
 
       - id: codeowners-tests
         name: codeowners tests
-        entry: node --test pi/agent/extensions/codeowners/resolve.test.ts
+        entry: ./scripts/test-codeowners.sh
         language: system
         pass_filenames: false
         files: ^pi/agent/extensions/codeowners/
