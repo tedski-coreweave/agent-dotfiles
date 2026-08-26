@@ -61,6 +61,33 @@ em-dashes, no hedging filler, no "Importantly/Crucially", have
 opinions, state facts directly. Caveats that matter stay; caveat
 spam goes.
 
+## Code comments
+
+Division of labor: the code says what, comments say why it's this way,
+commit messages say why it changed. A comment that only makes sense
+relative to a previous version ("previously", "changed to", "now
+uses") is a commit message wearing a comment's clothes; move it there.
+
+Write comments that:
+- justify the non-obvious choice, especially when a cleaner-looking
+  alternative exists and doesn't work; say why it doesn't, or the next
+  reader "fixes" it back
+- capture constraints invisible in the local code: API quirks,
+  ordering requirements, units, invariants, the race being avoided
+- clarify genuinely dense logic that resisted being made clearer;
+  rewriting beats annotating when both are possible
+
+Never write comments that:
+- narrate history or the edit
+- address the reviewer or the conversation ("as requested")
+- restate what readable code already says, or paraphrase a signature
+  into a docstring
+- pad trivial code to look thorough
+
+A comment invalidated by your edit is part of your diff: update it or
+delete it. The test for any comment: still true and useful to a fresh
+reader in a year, with no diff in sight?
+
 ## Verification
 
 Verify IDs, dates, ticket/PR numbers, and names against live tools
