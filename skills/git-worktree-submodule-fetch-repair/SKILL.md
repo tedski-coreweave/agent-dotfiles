@@ -32,14 +32,16 @@ fatal: Unable to find current revision in submodule path '<path>'
 - In a linked worktree, the broken per-worktree submodule gitdir is usually under:
 
 ```text
-$(git rev-parse --git-common-dir)/modules/<submodule-path>
+$(git rev-parse --git-dir)/modules/<submodule-path>
 ```
 
-where `git rev-parse --git-common-dir` from the linked worktree may resolve to something like:
+where `git rev-parse --git-dir` from the linked worktree resolves to the per-worktree path:
 
 ```text
 /path/to/main/.git/worktrees/<linked-worktree-name>
 ```
+
+Do not confuse it with `git rev-parse --git-common-dir`, which resolves to the SHARED `/path/to/main/.git`; its `modules/` holds the healthy submodule state for every worktree and must never be deleted by this procedure.
 
 ## Investigation
 
@@ -102,9 +104,11 @@ printf 'subgitdir=%s\n' "$subgitdir"
 
 test -n "$subgitdir" && find "$subgitdir" -maxdepth 2 -type f -print | sort | head -80
 
+git_dir=$(git rev-parse --git-dir)
 git_common=$(git rev-parse --git-common-dir)
-printf 'linked common dir=%s\n' "$git_common"
-printf 'candidate per-worktree submodule gitdir=%s\n' "$git_common/modules/$sub"
+printf 'per-worktree gitdir=%s\n' "$git_dir"
+printf 'shared common dir (do not delete from)=%s\n' "$git_common"
+printf 'candidate per-worktree submodule gitdir=%s\n' "$git_dir/modules/$sub"
 ```
 
 ## Repair path
@@ -132,6 +136,17 @@ printf 'removing submodule gitdir: %s\n' "$subgitdir"
 
 # Optional safety check. This may fail when the submodule is already corrupt.
 git -C "$sub" status --short --branch 2>&1 || true
+
+# Guard: only a per-worktree submodule gitdir is safe to delete. Anything
+# else (notably <shared .git>/modules/<sub>) is shared state for every
+# worktree, and deleting it converts one broken worktree into all of them.
+case "$subgitdir" in
+  */.git/worktrees/*/modules/*) ;;
+  *)
+    printf 'REFUSING to delete %s: not a per-worktree submodule gitdir\n' "$subgitdir" >&2
+    exit 1
+    ;;
+esac
 
 rm -rf "$sub" "$subgitdir"
 
