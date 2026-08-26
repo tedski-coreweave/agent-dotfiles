@@ -109,11 +109,10 @@ if you claim something is idiomatic, cite it.
 - macOS, oh-my-zsh. Netskope TLS interception:
   NODE_EXTRA_CA_CERTS=~/.pi/netskope-ca.pem (refresh via
   ~/.pi/refresh-netskope-ca.sh).
-- flox/nix envs (notably ~/src/core) break macOS keychain: use
-  DD_TOKEN_STORAGE=file with pup; run Slack-MCP work outside the
-  flox env.
-- ~/src/core git submodule: never `git submodule update --remote
-  --merge`; leave the pointer alone.
+- flox/nix envs break macOS keychain: use DD_TOKEN_STORAGE=file with
+  pup; run Slack-MCP work outside flox envs.
+- Repos with git submodules: never `git submodule update --remote
+  --merge`; leave pointers alone unless the submodule is the task.
 - Tools on hand: gh (+gh-stack), circleci, acli, pup, terraform
   (HCP, VCS-driven: apply happens on merge), gcloud, kubectl, tilt,
   flox, orbctl, rg, fd.
@@ -128,7 +127,7 @@ When a CLI and an MCP server overlap, the CLI wins.
   can do more. Reach for the MCP only when acli can't.
 - Slack, Notion: MCP is the right tool.
 - Glean MCP: enterprise search. Use for "where is this documented /
-  discussed at CoreWeave" questions before declaring something
+  discussed internally" questions before declaring something
   unfindable.
 - Sourcegraph MCP: cross-repo code search. Use when the answer lives
   in a repo that isn't cloned locally; beats guessing from memory.
@@ -139,7 +138,7 @@ When a CLI and an MCP server overlap, the CLI wins.
 ## Context pointers
 
 - Glossary (people, channels, quirks): ~/obsidian/06_Metadata/Glossary.md.
-- Work repo: ~/src/core (wandb/core). Its AGENTS.md is canonical
+- Work repos live under ~/src. Each repo's AGENTS.md is canonical
   there and overrides this file.
 - Notes vault: ~/obsidian. Work-only. Its CLAUDE.md governs inside.
 
