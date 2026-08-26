@@ -40,7 +40,9 @@ one directory symlink; nothing else writes there.
    when no CA is found), then npm install (pi extension packages).
 5. `git config --global core.excludesFile ~/.gitignore` (without this,
    git ignores the deployed global gitignore; git's default location is
-   ~/.config/git/ignore, not ~/.gitignore)
+   ~/.config/git/ignore, not ~/.gitignore) and
+   `git config --global init.defaultBranch main` (or new repos default
+   to master)
 6. `pre-commit install` in this repo (enables the gitleaks hook).
 7. Manual auth, in any order:
    - `op signin` (models.json resolves API keys via `!op read` refs)
