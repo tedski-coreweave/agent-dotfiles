@@ -26,6 +26,14 @@ globally).
 - Removing a file: remove the LINKS entry, delete the symlink at the
   target, restore or delete the target as appropriate, then delete from
   the repo. Same commit.
+- Skill descriptions are routing surfaces, not catalog copy. An agent
+  sees only name + description when deciding mid-task whether to load
+  the file, so write trigger conditions: the user phrasings,
+  situations, and literal error strings that will be in context at the
+  moment of need, plus what the skill produces. The test: given
+  name + description alone, does the skill get loaded at the right
+  moment? House example: git-worktree-submodule-fetch-repair baits the
+  exact fetch error text.
 - `~/.config/git/ignore` is generated from `~/.config/git/ignore.d/*`
   fragments. Global ignore patterns go in `shell/gitignore.d/50-agents`,
   never in the generated file and never via `core.excludesFile` (which

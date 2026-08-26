@@ -1,6 +1,6 @@
 ---
 name: git-worktrees
-description: Work with git worktrees for isolated parallel development. Use when starting feature work in isolation, when need separate workspace without branch switching, or when cleaning up worktrees after PR merge.
+description: Create, use, and clean up git worktrees. Use when asked to work in a worktree, run parallel work without branch switching, start isolated feature work, or remove/prune worktrees after a merge.
 ---
 
 # Git Worktrees

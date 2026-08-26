@@ -1,6 +1,6 @@
 ---
 name: pragmatic-review
-description: Interactive pragmatic code review focusing on YAGNI and KISS principles. Use when the user asks for a code review, wants to check for over-engineering, or wants a YAGNI/KISS-focused review of changes.
+description: Review code or a diff for over-engineering, YAGNI violations, needless abstraction, and speculative generality. Use when asked for a code review, whether something is over-engineered, whether code can be simpler, or whether an abstraction earns its keep.
 ---
 
 # Pragmatic Code Review: YAGNI & KISS Focus
