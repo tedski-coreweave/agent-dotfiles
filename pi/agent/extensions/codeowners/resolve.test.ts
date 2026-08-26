@@ -95,6 +95,21 @@ apps/ @octocat
 /apps/github
 `;
 
+/**
+ * Run git without inheriting the caller's git environment.
+ *
+ * Hook runners (pre-commit) export GIT_INDEX_FILE, GIT_DIR, and friends. A
+ * nested `git init` / `git worktree add` inherits them and fails with
+ * "index file open failed", so these tests must start from a clean slate.
+ */
+function git(args: string[]): void {
+  const env = { ...process.env };
+  for (const key of Object.keys(env)) {
+    if (key.startsWith("GIT_")) delete env[key];
+  }
+  execFileSync("git", args, { env, stdio: ["ignore", "ignore", "pipe"] });
+}
+
 /** Resolve one path against a CODEOWNERS body. */
 function ownersOf(body: string, path: string): string[] {
   const rules = parseCodeowners(body);
@@ -256,7 +271,7 @@ describe("file location precedence", () => {
 
   it("prefers .github/CODEOWNERS when several exist", () => {
     const root = makeTempDir("co-precedence-");
-    execFileSync("git", ["init", "-q", root]);
+    git(["init", "-q", root]);
     mkdirSync(join(root, ".github"));
     mkdirSync(join(root, "docs"));
     writeFileSync(join(root, ".github", "CODEOWNERS"), "* @from-github-dir\n");
@@ -270,12 +285,12 @@ describe("file location precedence", () => {
 
   it("falls back to root, then docs/", () => {
     const rootOnly = makeTempDir("co-root-");
-    execFileSync("git", ["init", "-q", rootOnly]);
+    git(["init", "-q", rootOnly]);
     writeFileSync(join(rootOnly, "CODEOWNERS"), "* @from-root\n");
     assert.equal(locateCodeowners(rootOnly)?.file, join(rootOnly, "CODEOWNERS"));
 
     const docsOnly = makeTempDir("co-docs-");
-    execFileSync("git", ["init", "-q", docsOnly]);
+    git(["init", "-q", docsOnly]);
     mkdirSync(join(docsOnly, "docs"));
     writeFileSync(join(docsOnly, "docs", "CODEOWNERS"), "* @from-docs\n");
     assert.equal(locateCodeowners(docsOnly)?.file, join(docsOnly, "docs", "CODEOWNERS"));
@@ -283,7 +298,7 @@ describe("file location precedence", () => {
 
   it("ignores CODEOWNERS files outside the three supported locations", () => {
     const root = makeTempDir("co-nested-");
-    execFileSync("git", ["init", "-q", root]);
+    git(["init", "-q", root]);
     const nested = join(root, "packages", "widget");
     mkdirSync(nested, { recursive: true });
     writeFileSync(join(nested, "CODEOWNERS"), "* @nested-owner\n");
@@ -296,12 +311,12 @@ describe("file location precedence", () => {
 
   it("does not escape into a parent repository", () => {
     const outer = makeTempDir("co-outer-");
-    execFileSync("git", ["init", "-q", outer]);
+    git(["init", "-q", outer]);
     writeFileSync(join(outer, "CODEOWNERS"), "* @outer-owner\n");
 
     const inner = join(outer, "inner");
     mkdirSync(inner);
-    execFileSync("git", ["init", "-q", inner]);
+    git(["init", "-q", inner]);
 
     // The inner repository has no CODEOWNERS; the outer file must not be used.
     assert.equal(findRepoRoot(inner), inner);
@@ -312,7 +327,7 @@ describe("file location precedence", () => {
 describe("repository root detection", () => {
   it("finds the root from a nested directory", () => {
     const root = makeTempDir("co-nested-root-");
-    execFileSync("git", ["init", "-q", root]);
+    git(["init", "-q", root]);
     const deep = join(root, "a", "b", "c");
     mkdirSync(deep, { recursive: true });
     assert.equal(findRepoRoot(deep), root);
@@ -320,16 +335,16 @@ describe("repository root detection", () => {
 
   it("resolves linked worktrees where .git is a file", () => {
     const root = makeTempDir("co-worktree-");
-    execFileSync("git", ["init", "-q", "-b", "main", root]);
-    execFileSync("git", ["-C", root, "config", "user.email", "t@example.com"]);
-    execFileSync("git", ["-C", root, "config", "user.name", "T"]);
+    git(["init", "-q", "-b", "main", root]);
+    git(["-C", root, "config", "user.email", "t@example.com"]);
+    git(["-C", root, "config", "user.name", "T"]);
     mkdirSync(join(root, ".github"));
     writeFileSync(join(root, ".github", "CODEOWNERS"), "* @main-owner\n");
-    execFileSync("git", ["-C", root, "add", "-A"]);
-    execFileSync("git", ["-C", root, "commit", "-q", "-m", "init"]);
+    git(["-C", root, "add", "-A"]);
+    git(["-C", root, "commit", "-q", "-m", "init"]);
 
     const wt = join(root, "wt");
-    execFileSync("git", ["-C", root, "worktree", "add", "-q", wt, "-b", "side"]);
+    git(["-C", root, "worktree", "add", "-q", wt, "-b", "side"]);
 
     // In a linked worktree, `.git` is a file. Root detection must still work and
     // must resolve to the worktree, where the checked-out CODEOWNERS lives.
@@ -342,7 +357,7 @@ describe("repository root detection", () => {
 describe("path normalization", () => {
   it("accepts absolute paths, ./ prefixes, and @ prefixes", () => {
     const root = makeTempDir("co-normalize-");
-    execFileSync("git", ["init", "-q", root]);
+    git(["init", "-q", root]);
     writeFileSync(join(root, "CODEOWNERS"), "docs/ @a\n");
 
     const r = report(root, [join(root, "docs", "x.md"), "./docs/x.md", "@docs/x.md"]);
@@ -373,14 +388,19 @@ describe("wandb/core CODEOWNERS", () => {
       .filter((l) => l.length > 0);
     const ownerless = activeLines.filter((l) => l.split(/\s+/).length === 1);
 
+    // Assert the invariant, not a snapshot count: this file is a live external
+    // dependency that gains rules whenever someone lands a PR in core. The
+    // 2026-08-25 review measured 896 active / 26 ownerless; drift in the totals
+    // is expected, a mismatch against the independent count is the real bug.
     assert.equal(rules.length, activeLines.length, "every active line becomes a rule");
     assert.equal(
       rules.filter((r) => r.owners.length === 0).length,
       ownerless.length,
       "ownerless rules are retained",
     );
-    // Regression guard for the review's measured baseline.
-    assert.equal(rules.length, 896);
-    assert.equal(ownerless.length, 26);
+    // Sanity floor: the old parser silently dropped ownerless rules, so a
+    // regression would show up as zero of them in a file that has many.
+    assert.ok(ownerless.length > 0, "core has ownerless rules to exercise the clearing path");
+    assert.ok(rules.length > 800, `expected a large ruleset, got ${rules.length}`);
   });
 });

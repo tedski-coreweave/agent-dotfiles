@@ -1,5 +1,29 @@
 repos:
   - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.18.4
+    rev: v8.30.1
     hooks:
       - id: gitleaks
+
+  # Focused local checks. Deliberately small: this is a config repo, not an
+  # application. ./verify.sh runs these plus the install check in one shot.
+  - repo: local
+    hooks:
+      - id: shell-syntax
+        name: shell syntax
+        entry: bash -n
+        language: system
+        files: \.(sh|zsh)$
+
+      - id: tracked-json
+        name: tracked json
+        entry: jq empty
+        language: system
+        files: \.json$
+        exclude: ^pi/agent/npm/package-lock\.json$
+
+      - id: codeowners-tests
+        name: codeowners tests
+        entry: node --test pi/agent/extensions/codeowners/resolve.test.ts
+        language: system
+        pass_filenames: false
+        files: ^pi/agent/extensions/codeowners/

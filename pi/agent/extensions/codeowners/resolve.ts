@@ -182,9 +182,17 @@ export function parseCodeowners(contents: string): Rule[] {
  */
 export function findRepoRoot(start: string): string | undefined {
   try {
+    // Strip inherited GIT_* vars. Under a hook runner (pre-commit sets
+    // GIT_INDEX_FILE, GIT_DIR) they would redirect this lookup at the hook's
+    // repository instead of the path being queried.
+    const env = { ...process.env };
+    for (const key of Object.keys(env)) {
+      if (key.startsWith("GIT_")) delete env[key];
+    }
     const out = execFileSync("git", ["-C", start, "rev-parse", "--show-toplevel"], {
       encoding: "utf8",
       stdio: ["ignore", "pipe", "ignore"],
+      env,
     });
     const root = out.trim();
     if (root) return root;

@@ -73,9 +73,20 @@ for entry in "${LINKS[@]}"; do
         findings=$((findings + 1))
         ;;
       force)
-        mv "$dst" "$dst.pre-dotfiles"
+        # Never clobber an earlier backup: that is the only copy of the
+        # pre-dotfiles original, and a second forced run would erase it.
+        backup="$dst.pre-dotfiles"
+        if [[ -e "$backup" ]]; then
+          backup="$dst.pre-dotfiles.$(date +%Y%m%d%H%M%S)"
+        fi
+        if [[ -e "$backup" ]]; then
+          echo "REFUSING to overwrite existing backup: $backup" >&2
+          findings=$((findings + 1))
+          continue
+        fi
+        mv "$dst" "$backup"
         ln -sfn "$src" "$dst"
-        echo "backed up + linked: $dst (original: $dst.pre-dotfiles)"
+        echo "backed up + linked: $dst (original: $backup)"
         ;;
       install)
         echo "REFUSING to clobber real file: $dst (rerun with --force)" >&2
