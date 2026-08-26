@@ -94,7 +94,7 @@ reader in a year, with no diff in sight?
 ## Verification
 
 Verify IDs, dates, ticket/PR numbers, and names against live tools
-(gh, circleci, acli, pup, MCP) before reporting them. Say what you
+(gh, acli, pup, MCP) before reporting them. Say what you
 could not verify. Never hand-convert dates or renumber references
 from memory.
 
@@ -113,7 +113,7 @@ if you claim something is idiomatic, cite it.
   pup; run Slack-MCP work outside flox envs.
 - Repos with git submodules: never `git submodule update --remote
   --merge`; leave pointers alone unless the submodule is the task.
-- Tools on hand: gh (+gh-stack), circleci, acli, pup, terraform
+- Tools on hand: gh (+gh-stack), acli, pup, terraform
   (HCP, VCS-driven: apply happens on merge), gcloud, kubectl, tilt,
   flox, orbctl, rg, fd.
 

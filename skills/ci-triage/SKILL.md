@@ -1,6 +1,6 @@
 ---
 name: ci-triage
-description: Triage a CI failure from a link (GitHub Actions, CircleCI, Datadog, Currents, or a Slack thread about a red build). Produces an evidence-backed report with separate fields for surface, cause, repeatability, ownership, and disposition. Use when given a failing build, red CI, broken pipeline, or merge-queue failure.
+description: Triage a CI failure from a link (GitHub Actions, Datadog, Currents, or a Slack thread about a red build). Produces an evidence-backed report with separate fields for surface, cause, repeatability, ownership, and disposition. Use when given a failing build, red CI, broken pipeline, or merge-queue failure.
 ---
 
 # CI failure triage
@@ -45,9 +45,6 @@ dimensions separately and let the disposition follow from them.
 1. Resolve the reference to a concrete run.
    - GHA: `gh run view <id> --log-failed` (repo-scoped; get the repo
      from the URL, don't assume core).
-   - CircleCI: `circleci` CLI. Some repos generate their CircleCI
-     config from a script; there, config errors may be generator bugs
-     rather than YAML edits.
    - Slack thread: read it, extract the run link, start from the run.
      The thread's diagnosis is a hypothesis, not evidence.
 2. Find the first causal failure. Walk back from the reported symptom
