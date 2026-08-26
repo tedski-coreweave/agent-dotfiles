@@ -77,6 +77,13 @@ about.
    with reviewers on independent angles and different model families.
    Different reviewers catch different real bugs.
 
+## Wide refactors
+
+A wide mechanical refactor is the exception to fearing breadth:
+sequence it expand → migrate in blast-radius-sized batches → contract,
+each batch green on its own. The blast radius of each batch is what
+this skill assesses; the sequencing is what keeps it small.
+
 ## What to hand back
 
 - **What it does.** What changed, including the part that isn't

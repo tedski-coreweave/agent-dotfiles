@@ -281,6 +281,13 @@ What would you like to do?
 3. **Speculative database fields** - columns always NULL
 4. **Premature optimization** - caching before measuring
 
+### ALWAYS Flag These Test Smells:
+
+1. **Tautological tests** - assertions that restate the mock or the
+   implementation; they go green on any behavior
+2. **Horizontal slicing** - testing every layer's plumbing separately
+   instead of one vertical behavior end to end
+
 ### ALWAYS Flag These KISS Violations:
 
 1. **Standard library reimplementation**

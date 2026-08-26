@@ -26,6 +26,8 @@ dimensions separately and let the disposition follow from them.
   catching it.
 - No masking. Do not add arbitrary retries, sleeps, raised timeouts,
   weakened assertions, or skips to make a signal go away.
+- A fix proposal needs a red loop first: a runnable check that shows
+  the failure now and goes green when fixed. No red loop, no fix claim.
 - Quarantine is containment, not a classification outcome. It requires
   a denominator, a time window, and explicit human approval. Never quarantine as
   the automatic consequence of calling something flaky.
@@ -85,8 +87,10 @@ Keep it copy/pasteable into Slack or a ticket.
   cause.
 - Deterministic and not ours: route to the owner with the signature and
   the first causal failure.
-- Known flake: report the rate with its denominator and window, then
-  propose a real fix. Containment (quarantine) needs explicit human approval and
+- Known flake: work to raise the reproduction rate (tighter loop,
+  repeated or stress runs, narrowed scope) rather than demanding one
+  clean repro before acting. Report the rate with its denominator and
+  window, then propose a real fix. Containment (quarantine) needs explicit human approval and
   is temporary, with the follow-up recorded.
 - Likely transient infra: look for a matching known issue first, then
   escalate with the correlation evidence. Log friction with `frog` when

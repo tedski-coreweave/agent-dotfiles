@@ -54,6 +54,8 @@ Fancy "is": serves as, stands as, boasts, features. Say is or has.
 - Bolding every noun. Title Case Headings (use sentence case).
 - Decorative emojis. Curly quotes.
 - Rhetorical question followed by its own answer.
+- Unargued format. Prose, list, or table is a per-material decision;
+  defaulting to one shape regardless of content is a tell.
 - Colons as mid-sentence connectors. Fine before a list or example.
 
 ## Content tells

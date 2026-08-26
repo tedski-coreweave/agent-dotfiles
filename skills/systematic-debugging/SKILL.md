@@ -67,6 +67,12 @@ You MUST complete each phase before proceeding to the next.
    - What are the exact steps?
    - Does it happen every time?
    - If not reproducible → gather more data, don't guess
+   - Exit criterion: a red-capable command, something runnable that
+     shows the failure now and goes green when it's fixed. No
+     red-capable command, no Phase 3.
+   - For intermittents, raise the reproduction rate (tight loop,
+     repeated runs, narrowed scope) instead of demanding perfect
+     determinism before proceeding
 
 3. **Check Recent Changes**
    - What changed that could cause this?

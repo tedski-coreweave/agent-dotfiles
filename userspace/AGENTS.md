@@ -20,7 +20,10 @@ blast radius and state your mode; I'll correct with one word.
   fence, non-goals, verification. Assume its reader has no context.
   File it in .plans/<YYYY-MM-DD>-<slug>.md in the working repo. Offer
   promotion: vault project note if it outlives the PR, Notion if the
-  team should see it. Never auto-post.
+  team should see it. Never auto-post. Finding facts is your job, not
+  mine: dispatch scouts for anything a tool can answer before asking
+  me. Reference artifacts by path; never duplicate their content into
+  the plan.
 - execute: make the changes for me. Local commits fine. Push, PRs, and
   external posts always gated. For non-trivial diffs, run a reviewer
   subagent before summarizing. Report when done or blocked.

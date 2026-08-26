@@ -39,6 +39,11 @@ from genuine disagreement; a reviewer that rubber-stamps is waste.
 - Prefer reviewers with independent angles (correctness, scope creep,
   failure modes, portability) over duplicate generalists; overlap
   wastes tokens, independence finds bugs.
+- Review on two separate axes: does the change meet repo standards,
+  and does it satisfy the spec or plan it came from? Never rerank one
+  axis's findings by the other's.
+- Skip anything tooling already enforces. Lint findings are the
+  linter's job; a reviewer repeating them is noise.
 - Disagreement between reviewers is signal, not noise; surface it
   instead of averaging it away.
 - Verbatim means verbatim. If a finding is embarrassing, that's the
