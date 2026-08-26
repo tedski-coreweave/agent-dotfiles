@@ -23,7 +23,7 @@ from genuine disagreement; a reviewer that rubber-stamps is waste.
      Tell them what kind of findings you want (correctness, scope
      creep, readability, missed failure modes) and what's out of scope.
 3. Return findings VERBATIM. No softening, no summarizing away the
-   sting, no pre-filtering "unimportant" ones. Ted reads reviews raw.
+   sting, no pre-filtering "unimportant" ones.
 4. Author responds finding-by-finding: accept (with the fix) or push
    back (with evidence). "Reviewer said so" is not a reason to change
    correct code; "it's a known idiom" is not a defense without a

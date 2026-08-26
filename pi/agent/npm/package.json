@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "pi-devin-auth": "^0.1.2",
-    "pi-mcp-adapter": "^2.28.0",
+    "pi-mcp-adapter": "^2.29.0",
     "pi-parallel-sessions": "^0.2.8",
     "pi-rewind": "^0.5.0",
     "pi-subagents": "^0.57.0"

@@ -1,6 +1,9 @@
 ---
 name: writing-voice
 description: Voice rules for prose artifacts (commits, PRs, Slack, Notion, docs, notes). Load BEFORE drafting to prevent AI tells at the source; use repair mode when asked to de-ai-ify, humanize, or fix existing text.
+refs:
+  - https://github.com/cursor/plugins/tree/main/pstack/skills/unslop
+  - https://github.com/blalor/pi-dot-dev
 ---
 
 # Writing voice
@@ -10,10 +13,8 @@ Repair mode: rewrite existing text against the same rules and show a
 short changelog of what was fixed. The rules are identical; the only
 difference is when they're applied. Prevention beats repair.
 
-Merged from Ted's de-ai-ify rules, the cursor unslop pattern list, and
-selected rules from Brian Lalor's no-ai-slop skill
-(https://github.com/blalor/pi-dot-dev), curated to Ted's taste. When a rule here conflicts with a style guide in
-the working repo, the repo wins.
+When a rule here conflicts with a style guide in the working repo, the
+repo wins.
 
 ## Non-negotiables
 

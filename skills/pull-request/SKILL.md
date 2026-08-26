@@ -1,6 +1,6 @@
 ---
 name: pull-request
-description: Prepare a branch, commit, and open a draft pull request following Ted's git conventions. Use when asked to open a PR, create a pull request, or push changes for review.
+description: Prepare a branch, commit, and open a draft pull request following the userspace git conventions. Use when asked to open a PR, create a pull request, or push changes for review.
 ---
 
 # Pull request

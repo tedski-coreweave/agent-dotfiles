@@ -27,7 +27,7 @@ dimensions separately and let the disposition follow from them.
 - No masking. Do not add arbitrary retries, sleeps, raised timeouts,
   weakened assertions, or skips to make a signal go away.
 - Quarantine is containment, not a classification outcome. It requires
-  a denominator, a time window, and Ted's approval. Never quarantine as
+  a denominator, a time window, and explicit human approval. Never quarantine as
   the automatic consequence of calling something flaky.
 
 ## Environment (this machine)
@@ -86,7 +86,7 @@ Keep it copy/pasteable into Slack or a ticket.
 - Deterministic and not ours: route to the owner with the signature and
   the first causal failure.
 - Known flake: report the rate with its denominator and window, then
-  propose a real fix. Containment (quarantine) needs Ted's approval and
+  propose a real fix. Containment (quarantine) needs explicit human approval and
   is temporary, with the follow-up recorded.
 - Likely transient infra: look for a matching known issue first, then
   escalate with the correlation evidence. Log friction with `frog` when

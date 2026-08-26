@@ -1,6 +1,6 @@
 # agent-dotfiles
 
-Versioned agent-harness configuration for Ted Strzalkowski. Captures the
+Versioned personal agent-harness configuration. Captures the
 pi harness today. Other harnesses (claude, codex, devin) get their own
 top-level dir when they come in scope; the layout is per-harness on
 purpose. Private repo; contains work context, no secrets.
@@ -62,7 +62,7 @@ one directory symlink; nothing else writes there.
 - Machine -> repo: runtime writes (pi bumping `lastChangelogVersion`,
   etc.) flow through the symlinks and show up as `git diff` here. Review,
   commit with intent (`chore: sync runtime drift` for mechanical churn),
-  push only with Ted's approval.
+  push only with the owner's approval.
 - Drift check: `./install.sh --check` (also run during weekly synthesis).
 
 ## Global gitignore

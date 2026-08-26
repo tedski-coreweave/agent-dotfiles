@@ -15,7 +15,7 @@ globally).
   live beside the targets and must stay untracked real files.
   `~/.agents/skills` is the only permitted directory symlink.
 - Never commit anything on the `.gitignore` deny-list. If a diff shows a
-  token, key, or transcript, stop and tell Ted.
+  token, key, or transcript, stop and tell the owner.
 - Adding a *deployed* file: place it in the repo, add a `source:target`
   entry to `LINKS` in `install.sh`, run `./install.sh`, commit both
   together.
@@ -38,7 +38,7 @@ globally).
   fails on pre-23 Node).
 - Mechanical runtime churn (settings.json lastChangelogVersion) commits
   as `chore: sync runtime drift`.
-- Local commits fine. Push requires Ted's explicit approval. Always.
+- Local commits fine. Push requires the owner's explicit approval. Always.
 - Skills promoted from the vault (~/obsidian) are MOVED, never copied:
   pi keeps the first skill found on a name collision, so a leftover vault
   copy shadows or drifts. Delete the vault original in the same change.

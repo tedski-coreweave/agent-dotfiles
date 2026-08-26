@@ -1,4 +1,4 @@
-# Ted's userspace agent instructions
+# Userspace agent instructions
 
 Execution contract for all agent sessions on this machine. Project
 AGENTS.md files override where they conflict. Persona and thinking-partner
