@@ -10,8 +10,9 @@ Repair mode: rewrite existing text against the same rules and show a
 short changelog of what was fixed. The rules are identical; the only
 difference is when they're applied. Prevention beats repair.
 
-Merged from Ted's de-ai-ify rules and the cursor unslop pattern list,
-curated to his taste. When a rule here conflicts with a style guide in
+Merged from Ted's de-ai-ify rules, the cursor unslop pattern list, and
+selected rules from Brian Lalor's no-ai-slop skill
+(https://github.com/blalor/pi-dot-dev), curated to Ted's taste. When a rule here conflicts with a style guide in
 the working repo, the repo wins.
 
 ## Non-negotiables
@@ -68,6 +69,17 @@ Fancy "is": serves as, stands as, boasts, features. Say is or has.
 - Cutoff disclaimers ("while specific details are limited"): find the
   detail or cut the sentence.
 
+## Evidence discipline
+
+- Only attributable numbers. Every statistic, date, amount, and measured
+  quantity comes from a real source. Unsupportable? Remove it, don't
+  round it into existence. Never invent a detail to make a sentence
+  sound more concrete.
+- No manufactured urgency. A call to act names the real deadline,
+  penalty, or failure mode, or it goes.
+- Write like a researcher, not a copywriter: specific, checkable
+  statements.
+
 ## Plain speech
 
 - Say what it does, not how it feels. If a sentence can't be restated
@@ -78,6 +90,13 @@ Fancy "is": serves as, stands as, boasts, features. Say is or has.
 - Cut adverbs or use the measurement: "significantly faster" becomes
   the delta.
 - One idea per sentence. If the reader backtracks, split it.
+- Don't narrate the document: no "as discussed above", "as noted
+  earlier", "as we will see". State the relationship directly.
+- No scare quotes around ordinary words. Quotation marks are for
+  quotations, titles, and terms that genuinely need them.
+- No clarifications in headings; name the section directly and qualify
+  in the body.
+- Say a thing once. Overlapping paragraphs merge or die.
 
 ## Add soul
 
