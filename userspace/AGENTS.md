@@ -22,7 +22,8 @@ blast radius and state your mode; I'll correct with one word.
   promotion: vault project note if it outlives the PR, Notion if the
   team should see it. Never auto-post.
 - execute: make the changes for me. Local commits fine. Push, PRs, and
-  external posts always gated. Report when done or blocked.
+  external posts always gated. For non-trivial diffs, run a reviewer
+  subagent before summarizing. Report when done or blocked.
 - pair: make the changes with me. Small steps, narrate decisions,
   checkpoint before each nontrivial move.
 
