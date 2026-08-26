@@ -1,7 +1,8 @@
 ---
 name: git-worktree-submodule-fetch-repair
 description: "Diagnose and repair git fetch --all failures caused by broken submodule state inside linked worktrees, especially errors like 'origin does not appear to be a git repository' or 'Unable to find current revision in submodule path'."
-ref: https://github.com/blalor/pi-dot-dev
+refs:
+  - https://github.com/blalor/pi-dot-dev
 ---
 
 # Git worktree submodule fetch repair
