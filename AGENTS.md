@@ -2,7 +2,8 @@
 
 This repo IS the live configuration. Most tracked files are symlink
 targets for `~/.pi/agent`, `~/.agents/skills`, `~/.oh-my-zsh/custom`, and
-`~/.gitignore`. An edit here changes the running system immediately.
+`~/.config/git/ignore.d`. An edit here changes the running system
+immediately.
 Treat every change as high blast radius, especially `userspace/AGENTS.md`
 (loaded by every agent session on this machine) and `skills/` (discovered
 globally).
@@ -25,6 +26,10 @@ globally).
 - Removing a file: remove the LINKS entry, delete the symlink at the
   target, restore or delete the target as appropriate, then delete from
   the repo. Same commit.
+- `~/.config/git/ignore` is generated from `~/.config/git/ignore.d/*`
+  fragments. Global ignore patterns go in `shell/gitignore.d/50-agents`,
+  never in the generated file and never via `core.excludesFile` (which
+  would shadow the generated default).
 - Run `./install.sh --check` before and after your change. It must exit 0
   when you finish (or the remaining findings must be the point of the PR).
 - Verify before committing: `./verify.sh` (shell syntax, tracked JSON,

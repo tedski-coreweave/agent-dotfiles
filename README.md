@@ -20,7 +20,7 @@ live file; same inode), review the diff here, commit with intent.
 | `pi/refresh-netskope-ca.sh` | `~/.pi/` |
 | `skills/` | `~/.agents/skills` (directory symlink) |
 | `zsh/agents.zsh` | `~/.oh-my-zsh/custom/agents.zsh` |
-| `shell/gitignore_global` | `~/.gitignore` |
+| `shell/gitignore.d/50-agents` | `~/.config/git/ignore.d/` (fragment; see below) |
 
 Files are linked individually, never directories, because `~/.pi/agent`
 also holds runtime secrets (auth.json, models-store.json, mcp-oauth/,
@@ -39,11 +39,10 @@ one directory symlink; nothing else writes there.
 4. Say yes to the post-steps, in the order offered: Netskope CA refresh
    first (skip on machines without Netskope; the script exits nonzero
    when no CA is found), then npm install (pi extension packages).
-5. `git config --global core.excludesFile ~/.gitignore` (without this,
-   git ignores the deployed global gitignore; git's default location is
-   ~/.config/git/ignore, not ~/.gitignore) and
-   `git config --global init.defaultBranch main` (or new repos default
-   to master)
+5. `git config --global init.defaultBranch main` (or new repos default
+   to master). Do NOT set `core.excludesFile`; the global gitignore is
+   generated at git's default location (see below) and an excludesFile
+   setting silently shadows it.
 6. `pre-commit install` in this repo (enables the gitleaks hook).
 7. Manual auth, in any order:
    - `op signin` (models.json resolves API keys via `!op read` refs)
@@ -64,6 +63,18 @@ one directory symlink; nothing else writes there.
   commit with intent (`chore: sync runtime drift` for mechanical churn),
   push only with Ted's approval.
 - Drift check: `./install.sh --check` (also run during weekly synthesis).
+
+## Global gitignore
+
+`~/.config/git/ignore` (git's default global excludes path) is a
+GENERATED file: install.sh concatenates every fragment in
+`~/.config/git/ignore.d/` in filename order. This repo contributes the
+`50-agents` fragment via symlink; any other dotfiles repo can drop its
+own fragment (e.g. `10-user`) and regenerate without coordination.
+Numbered prefixes control order, which matters for negation patterns.
+Edit fragments, never the generated file; `--check` flags a stale or
+hand-edited result, and direct edits are overwritten on the next
+install.
 
 ## Adding a file
 

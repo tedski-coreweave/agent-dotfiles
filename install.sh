@@ -29,7 +29,7 @@ LINKS=(
   "pi/agent/extensions/attention-notify.ts:$HOME/.pi/agent/extensions/attention-notify.ts"
   "skills:$HOME/.agents/skills"
   "zsh/agents.zsh:$HOME/.oh-my-zsh/custom/agents.zsh"
-  "shell/gitignore_global:$HOME/.gitignore"
+  "shell/gitignore.d/50-agents:$HOME/.config/git/ignore.d/50-agents"
 )
 
 MODE="install"
@@ -104,6 +104,56 @@ for entry in "${LINKS[@]}"; do
     mkdir -p "$(dirname "$dst")"
     ln -sfn "$src" "$dst"
     echo "linked: $dst"
+  fi
+done
+
+# --- Global gitignore assembly ---------------------------------------------
+# ~/.config/git/ignore (git's default global excludes path, read when
+# core.excludesFile is unset) is GENERATED from ~/.config/git/ignore.d/*
+# fragments so multiple repos can contribute patterns without fighting over
+# one file. This repo contributes 50-agents; numbered prefixes control
+# concatenation order, which matters because gitignore is last-pattern-wins.
+# git reads $XDG_CONFIG_HOME/git/ignore when that var is set, else
+# ~/.config/git/ignore; track the same resolution or ignores silently die.
+IGNORE_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/git/ignore.d"
+IGNORE_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/git/ignore"
+
+generate_ignore() {
+  echo "# GENERATED from ${IGNORE_DIR}/* by install.sh (any contributing repo)."
+  echo "# Edit the fragments, not this file; regeneration overwrites it."
+  local frag
+  for frag in "$IGNORE_DIR"/*; do
+    [[ -f "$frag" ]] || continue
+    echo ""
+    echo "# --- ${frag##*/}"
+    cat "$frag"
+  done
+}
+
+if [[ -d "$IGNORE_DIR" ]]; then
+  want="$(generate_ignore)"
+  have="$(cat "$IGNORE_FILE" 2>/dev/null || true)"
+  if [[ "$want" != "$have" ]]; then
+    if [[ "$MODE" == "check" ]]; then
+      echo "STALE OR MISSING GENERATED FILE: $IGNORE_FILE (rerun install)"
+      findings=$((findings + 1))
+    else
+      printf '%s\n' "$want" > "$IGNORE_FILE"
+      echo "generated: $IGNORE_FILE"
+    fi
+  elif [[ "$MODE" == "check" ]]; then
+    echo "ok: $IGNORE_FILE (generated)"
+  fi
+fi
+
+# core.excludesFile REPLACES the default path git reads, so a set value in
+# ANY scope silently shadows the generated file and every fragment in it.
+for scope in --system --global; do
+  if excl="$(git config "$scope" core.excludesFile 2>/dev/null)"; then
+    echo "WARNING: core.excludesFile ('$excl', $scope) shadows $IGNORE_FILE; unset it"
+    if [[ "$MODE" == "check" ]]; then
+      findings=$((findings + 1))
+    fi
   fi
 done
 
