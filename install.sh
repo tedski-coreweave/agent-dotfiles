@@ -26,6 +26,7 @@ LINKS=(
   "pi/agent/npm/package-lock.json:$HOME/.pi/agent/npm/package-lock.json"
   "pi/agent/extensions/codeowners/index.ts:$HOME/.pi/agent/extensions/codeowners/index.ts"
   "pi/agent/extensions/codeowners/resolve.ts:$HOME/.pi/agent/extensions/codeowners/resolve.ts"
+  "pi/agent/extensions/attention-notify.ts:$HOME/.pi/agent/extensions/attention-notify.ts"
   "skills:$HOME/.agents/skills"
   "zsh/agents.zsh:$HOME/.oh-my-zsh/custom/agents.zsh"
   "shell/gitignore_global:$HOME/.gitignore"
