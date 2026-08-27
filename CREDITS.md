@@ -5,7 +5,7 @@ relationship. They do not imply that every file is a verbatim copy.
 
 - Brian Lalor, [pi-dot-dev](https://github.com/blalor/pi-dot-dev)
   - Wholesale source for `skills/git-worktree-submodule-fetch-repair`.
-  - Adapted source for `SUITABLE_MODELS.md` and the attention-notify extension.
+  - Adapted source for `SUITABLE_MODELS.md`, `wandb-model-sync`, and the attention-notify extension.
   - Composite influence on `skills/writing-voice`.
 - Matt Pocock, [skills](https://github.com/mattpocock/skills)
   - Adapted sources for `skills/retro`, `skills/wizard`, and
