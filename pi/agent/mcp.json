@@ -23,6 +23,19 @@
     "sourcegraph": {
       "url": "https://coreweave.sourcegraphcloud.com/.api/mcp",
       "auth": "oauth"
+    },
+    "currents": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@currents/mcp"
+      ],
+      "env": {
+        "CURRENTS_API_KEY": "!op read 'op://Employee/Currents API Key/credential'"
+      },
+      "approveTools": [
+        "currents-delete-*"
+      ]
     }
   }
 }
