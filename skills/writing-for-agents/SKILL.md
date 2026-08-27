@@ -1,8 +1,6 @@
 ---
 name: writing-for-agents
 description: Writing documents for agents. Use when creating or editing a skill, an AGENTS.md/CLAUDE.md, a glossary, or any document an agent consumes through a pointer.
-refs:
-  - https://github.com/mattpocock/skills/tree/main/skills/productivity/writing-for-agents
 ---
 
 Reference for writing any document an agent consumes: a skill, an `AGENTS.md` / `CLAUDE.md`, a doc reached by a pointer. The packaging differs; the writing does not: the same levers make each one predictable, since the agent takes the same _process_ every run rather than producing the same output.

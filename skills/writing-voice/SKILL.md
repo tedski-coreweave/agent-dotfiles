@@ -1,9 +1,6 @@
 ---
 name: writing-voice
 description: Voice rules for prose artifacts (commits, PRs, Slack, Notion, docs, notes). Load BEFORE drafting to prevent AI tells at the source; use repair mode when asked to de-ai-ify, humanize, or fix existing text.
-refs:
-  - https://github.com/cursor/plugins/tree/main/pstack/skills/unslop
-  - https://github.com/blalor/pi-dot-dev
 ---
 
 # Writing voice

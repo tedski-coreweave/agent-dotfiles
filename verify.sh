@@ -22,7 +22,7 @@ step() {
 }
 
 step "shell syntax" bash -n install.sh pi/refresh-netskope-ca.sh verify.sh \
-  scripts/test-codeowners.sh
+  scripts/test-attention-notify.sh scripts/test-codeowners.sh
 
 json_files=(
   pi/agent/settings.json
@@ -34,6 +34,7 @@ json_files=(
 )
 step "tracked json" jq empty "${json_files[@]}"
 
+step "attention-notify tests" ./scripts/test-attention-notify.sh
 step "codeowners tests" ./scripts/test-codeowners.sh
 
 # Extension typecheck needs devDependencies; install them once, quietly.

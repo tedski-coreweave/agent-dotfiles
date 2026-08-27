@@ -1,8 +1,6 @@
 ---
 name: why
 description: "Dig up why code is the way it is: design rationale, rejected alternatives, the incident behind a defensive guard. Use for 'why does X work this way', 'why did we pick Y', regressions, postmortems, or data-backed thresholds. Sweeps git/PR history, tickets, docs, chat, and observability, then returns a cited, confidence-calibrated read."
-refs:
-  - https://github.com/cursor/plugins/tree/main/pstack/skills/why
 ---
 
 # Why

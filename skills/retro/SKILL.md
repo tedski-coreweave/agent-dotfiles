@@ -1,8 +1,6 @@
 ---
 name: retro
 description: "Retrospective on a coding session that proposes improvements to the agent environment. Use when asked for a retro, 'what should we encode from this', or after a session with repeated corrections, wasted searching, or expensive tool calls."
-refs:
-  - https://github.com/mattpocock/skills/tree/main/skills/in-progress/retro
 ---
 
 # Retro

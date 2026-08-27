@@ -1,14 +1,10 @@
 /**
- * attention-notify — desktop/terminal notification when the agent needs input.
+ * Desktop and terminal notification when the agent needs input.
+ * Adapted from Brian Lalor's macos-notify extension:
+ * https://github.com/blalor/pi-dot-dev
  *
- * Adapted from Brian Lalor's macos-notify extension
- * (https://github.com/blalor/pi-dot-dev). Changes for this harness:
- * Ghostty support via OSC 777, focus-gated notifications (only notify when
- * the terminal is unfocused, since a visible prompt needs no ping), and the
- * iTerm2 OSC 9 / tab-color paths kept for compatibility.
- *
- * The motivating incident: a permission prompt timed out unanswered because
- * nobody was looking at the terminal.
+ * A permission prompt once timed out unanswered because nobody was looking at
+ * the terminal.
  */
 
 import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
@@ -25,32 +21,32 @@ const FOCUS_OUT_SEQUENCE = "\x1b[O";
 
 type NotificationMethod = "ghostty" | "iterm2" | "macos" | "none";
 
-function isITerm2(): boolean {
+export function isITerm2(): boolean {
 	return process.env.TERM_PROGRAM === "iTerm.app" || !!process.env.ITERM_SESSION_ID;
 }
 
-function isGhostty(): boolean {
+export function isGhostty(): boolean {
 	return process.env.TERM_PROGRAM === "ghostty" || !!process.env.GHOSTTY_RESOURCES_DIR;
 }
 
-function supportsFocusReporting(): boolean {
+export function supportsFocusReporting(): boolean {
 	// CSI ?1004 is standard; Ghostty and iTerm2 both implement it.
 	return isGhostty() || isITerm2();
 }
 
-function compact(value: string, maxLength = 120): string {
+export function compactNotificationText(value: string, maxLength = 120): string {
 	const oneLine = value.replace(/\s+/g, " ").trim();
 	return oneLine.length > maxLength ? `${oneLine.slice(0, maxLength - 1)}…` : oneLine;
 }
 
-function terminalNotificationString(value: string): string {
+export function terminalNotificationString(value: string): string {
 	// OSC strings are terminated with BEL/ST. Strip terminal control characters
 	// so notification text cannot accidentally terminate the escape sequence.
 	// Also strip ';' from OSC 777 fields, which uses it as a delimiter.
-	return compact(value, 180).replace(/[\x00-\x1f\x7f\x9b]/g, " ");
+	return compactNotificationText(value, 180).replace(/[\x00-\x1f\x7f-\x9f]/g, " ");
 }
 
-function appleScriptString(value: string): string {
+export function appleScriptString(value: string): string {
 	return `"${value.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`;
 }
 
@@ -104,12 +100,12 @@ async function notifyMacOS(title: string, body: string, subtitle?: string): Prom
 	if (process.platform !== "darwin") return false;
 
 	const parts = [
-		`display notification ${appleScriptString(compact(body, 220))}`,
-		`with title ${appleScriptString(compact(title, 80))}`,
+		`display notification ${appleScriptString(compactNotificationText(body, 220))}`,
+		`with title ${appleScriptString(compactNotificationText(title, 80))}`,
 	];
 
 	if (subtitle) {
-		parts.push(`subtitle ${appleScriptString(compact(subtitle, 80))}`);
+		parts.push(`subtitle ${appleScriptString(compactNotificationText(subtitle, 80))}`);
 	}
 
 	parts.push('sound name "Glass"');

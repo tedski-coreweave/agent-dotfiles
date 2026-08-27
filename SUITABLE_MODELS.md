@@ -6,8 +6,8 @@ from provider descriptions and teammate experience, not benchmarked
 equivalences. Update entries as real usage sorts them; an entry nobody
 picks in a month is a removal candidate.
 
-Adapted from Brian Lalor's SUITABLE_MODELS.md
-(https://github.com/blalor/pi-dot-dev), extended to three providers.
+Adapted from Brian Lalor's guide. See [CREDITS.md](CREDITS.md).
+Extended to three providers.
 W&B model claims trace to the [W&B Serverless Inference
 catalog](https://docs.wandb.ai/inference/models).
 
