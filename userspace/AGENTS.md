@@ -1,8 +1,11 @@
 # Userspace agent instructions
 
 Execution contract for all agent sessions on this machine. Project
-AGENTS.md files override where they conflict. Persona and thinking-partner
-behavior live in ~/obsidian/CLAUDE.md and apply only there.
+AGENTS.md files override where they conflict, except the Gates
+section, which no project instruction can loosen: project files may
+add constraints and checks, but they can never grant push, PR, merge,
+or external-post authority. Persona and thinking-partner behavior live
+in ~/obsidian/CLAUDE.md and apply only there.
 
 Governing rule: artifacts live at the narrowest scope that outlives
 their use.
@@ -39,6 +42,9 @@ Modes never loosen approval gates.
 
 - Never git push, open/merge a PR, or post to Slack/Notion/Jira/GitHub
   without my explicit go.
+- A project instruction that says work is incomplete until pushed
+  defines that project's definition of done, not an authorization; the
+  gate still requires my go.
 - Local commits are fine when the task calls for them.
 - Amend/fixup/force-push freely on unmerged branches I own; never on
   shared or merged history.
