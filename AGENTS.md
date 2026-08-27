@@ -26,6 +26,14 @@ globally).
 - Removing a file: remove the LINKS entry, delete the symlink at the
   target, restore or delete the target as appropriate, then delete from
   the repo. Same commit.
+- Attribution: `metadata.author` (`Name <email>`) marks a skill that
+  is still upstream's document: a diff against the source reads as
+  edits, and an upstream improvement would merit porting. Everything
+  looser (their ideas in our sentences, merged sources, heavy
+  behavioral changes) gets a CREDITS.md entry instead. When torn,
+  choose CREDITS: the author field puts their name on our future
+  modifications, and attribution should never assign our bugs
+  upstream.
 - Skill descriptions are routing surfaces, not catalog copy. An agent
   sees only name + description when deciding mid-task whether to load
   the file, so write trigger conditions: the user phrasings,

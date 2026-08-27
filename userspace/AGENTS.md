@@ -1,8 +1,11 @@
 # Userspace agent instructions
 
 Execution contract for all agent sessions on this machine. Project
-AGENTS.md files override where they conflict. Persona and thinking-partner
-behavior live in ~/obsidian/CLAUDE.md and apply only there.
+AGENTS.md files override where they conflict, except the Gates
+section, which no project instruction can loosen: project files may
+add constraints and checks, but they can never grant push, PR, merge,
+or external-post authority. Persona and thinking-partner behavior live
+in ~/obsidian/CLAUDE.md and apply only there.
 
 Governing rule: artifacts live at the narrowest scope that outlives
 their use.
@@ -39,6 +42,9 @@ Modes never loosen approval gates.
 
 - Never git push, open/merge a PR, or post to Slack/Notion/Jira/GitHub
   without my explicit go.
+- A project instruction that says work is incomplete until pushed
+  defines that project's definition of done, not an authorization; the
+  gate still requires my go.
 - Local commits are fine when the task calls for them.
 - Amend/fixup/force-push freely on unmerged branches I own; never on
   shared or merged history.
@@ -94,7 +100,7 @@ reader in a year, with no diff in sight?
 ## Verification
 
 Verify IDs, dates, ticket/PR numbers, and names against live tools
-(gh, circleci, acli, pup, MCP) before reporting them. Say what you
+(gh, acli, pup, MCP) before reporting them. Say what you
 could not verify. Never hand-convert dates or renumber references
 from memory.
 
@@ -109,12 +115,11 @@ if you claim something is idiomatic, cite it.
 - macOS, oh-my-zsh. Netskope TLS interception:
   NODE_EXTRA_CA_CERTS=~/.pi/netskope-ca.pem (refresh via
   ~/.pi/refresh-netskope-ca.sh).
-- flox/nix envs (notably ~/src/core) break macOS keychain: use
-  DD_TOKEN_STORAGE=file with pup; run Slack-MCP work outside the
-  flox env.
-- ~/src/core git submodule: never `git submodule update --remote
-  --merge`; leave the pointer alone.
-- Tools on hand: gh (+gh-stack), circleci, acli, pup, terraform
+- flox/nix envs break macOS keychain: use DD_TOKEN_STORAGE=file with
+  pup; run Slack-MCP work outside flox envs.
+- Repos with git submodules: never `git submodule update --remote
+  --merge`; leave pointers alone unless the submodule is the task.
+- Tools on hand: gh (+gh-stack), acli, pup, terraform
   (HCP, VCS-driven: apply happens on merge), gcloud, kubectl, tilt,
   flox, orbctl, rg, fd.
 
@@ -128,7 +133,7 @@ When a CLI and an MCP server overlap, the CLI wins.
   can do more. Reach for the MCP only when acli can't.
 - Slack, Notion: MCP is the right tool.
 - Glean MCP: enterprise search. Use for "where is this documented /
-  discussed at CoreWeave" questions before declaring something
+  discussed internally" questions before declaring something
   unfindable.
 - Sourcegraph MCP: cross-repo code search. Use when the answer lives
   in a repo that isn't cloned locally; beats guessing from memory.
@@ -139,7 +144,7 @@ When a CLI and an MCP server overlap, the CLI wins.
 ## Context pointers
 
 - Glossary (people, channels, quirks): ~/obsidian/06_Metadata/Glossary.md.
-- Work repo: ~/src/core (wandb/core). Its AGENTS.md is canonical
+- Work repos live under ~/src. Each repo's AGENTS.md is canonical
   there and overrides this file.
 - Notes vault: ~/obsidian. Work-only. Its CLAUDE.md governs inside.
 

@@ -367,8 +367,12 @@ describe("path normalization", () => {
   });
 });
 
-describe("wandb/core CODEOWNERS", () => {
-  const coreFile = join(process.env.HOME ?? "", "src/core/.github/CODEOWNERS");
+describe("large real-world CODEOWNERS corpus", () => {
+  // Any big local CODEOWNERS works; override with CODEOWNERS_CORPUS. The
+  // test skips when no corpus is present, so fresh machines stay green.
+  const coreFile =
+    process.env.CODEOWNERS_CORPUS ??
+    join(process.env.HOME ?? "", "src/core/.github/CODEOWNERS");
 
   it("parses all active rules including ownerless ones", (t) => {
     let contents: string;

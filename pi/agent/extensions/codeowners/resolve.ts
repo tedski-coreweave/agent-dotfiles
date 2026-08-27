@@ -7,8 +7,8 @@
  *
  * GitHub applies CODEOWNERS with **last-match-wins** semantics over
  * gitignore-style patterns. Grepping is therefore unreliable: a broad early rule
- * is routinely overridden by a later narrow one, and in a large file (wandb/core
- * has ~896 rules) the override is easy to miss.
+ * is routinely overridden by a later narrow one, and in a large file (a big
+ * monorepo can run ~900 rules) the override is easy to miss.
  *
  * Behavior encoded here comes from GitHub's documentation:
  * https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners

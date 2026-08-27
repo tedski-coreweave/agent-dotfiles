@@ -62,10 +62,10 @@ Run the failing command and capture the exact submodule path:
 git fetch --all
 ```
 
-Inspect the submodule. Replace `services/weave-python/weave-public` with the failing path:
+Inspect the submodule. Replace `libs/example-submodule` with the failing path:
 
 ```bash
-sub=services/weave-python/weave-public
+sub=libs/example-submodule
 
 git submodule status --recursive -- "$sub"
 ls -la "$sub"
@@ -99,7 +99,7 @@ git -C "$main/$sub" config --local --list --show-origin | grep -E '(remote\.orig
 Also inspect the per-worktree and shared submodule gitdirs:
 
 ```bash
-sub=services/weave-python/weave-public
+sub=libs/example-submodule
 subgitdir=$(git -C "$sub" rev-parse --git-dir 2>/dev/null || true)
 printf 'subgitdir=%s\n' "$subgitdir"
 
@@ -117,7 +117,7 @@ printf 'candidate per-worktree submodule gitdir=%s\n' "$git_dir/modules/$sub"
 First try the normal repair:
 
 ```bash
-sub=services/weave-python/weave-public
+sub=libs/example-submodule
 
 git submodule deinit -f -- "$sub"
 git submodule sync -- "$sub"
@@ -128,7 +128,7 @@ git fetch --all
 If that fails with `Unable to find current revision in submodule path`, remove the broken per-worktree checkout and its per-worktree gitdir, then initialize again:
 
 ```bash
-sub=services/weave-python/weave-public
+sub=libs/example-submodule
 
 # Capture this before deleting the working tree.
 subgitdir=$(git -C "$sub" rev-parse --git-dir)

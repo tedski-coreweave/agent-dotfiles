@@ -28,6 +28,13 @@ repos:
         pass_filenames: false
         files: ^(pi/agent/extensions/.*\.ts|tsconfig\.extensions\.json)$
 
+      - id: skill-checks
+        name: skill checks
+        entry: node scripts/check-skills.mjs
+        language: system
+        pass_filenames: false
+        files: ^(skills/|scripts/check-skills\.mjs|CREDITS\.md)
+
       - id: codeowners-tests
         name: codeowners tests
         entry: ./scripts/test-codeowners.sh
