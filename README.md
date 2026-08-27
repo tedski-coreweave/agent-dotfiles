@@ -3,7 +3,7 @@
 Versioned personal agent-harness configuration. Captures the
 pi harness today. Other harnesses (claude, codex, devin) get their own
 top-level dir when they come in scope; the layout is per-harness on
-purpose. Public repo; contains no secrets.
+purpose.
 
 The live system uses these files THROUGH symlinks. Edit here (or edit the
 live file; same inode), review the diff here, commit with intent.
