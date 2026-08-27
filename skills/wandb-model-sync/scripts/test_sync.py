@@ -71,6 +71,14 @@ class TestSync(unittest.TestCase):
   output=Path(".pi_tmp/wandb-model-sync/test-directory-output");output.mkdir(parents=True,exist_ok=True);stream=io.StringIO()
   with patch.object(sys,"argv",["sync.py","--output",str(output)]),contextlib.redirect_stdout(stream): self.assertEqual(sync.main(),2)
   self.assertEqual(json.loads(stream.getvalue())["errors"],["output path is a directory"])
+ def test_unmanaged_unmatched_model_is_quarantined_not_blocking(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp); state=root/"state"; config=root/"models.json"; wanted={"id":"x/y","name":"X","reasoning":False,"input":["text"],"contextWindow":262144,"maxTokens":32768};config.write_text(json.dumps({"providers":{"WandB-Inference":{"models":[wanted]}}}));schema={"x":1};digest=hashlib.sha256(json.dumps(schema,sort_keys=True,separators=(",",":")).encode()).hexdigest();base=root/"baseline";base.write_text(json.dumps({"source":sync.OPENAPI,"retrievedAt":"x","canonicalization":"json.dumps(sort_keys=True,separators=(',', ':'))/sha256-v1","sha256":digest}));out=Path(".pi_tmp/wandb-model-sync/test-quarantine.json")
+   self.assertEqual(self.cli(["--output",out,"--state",state,"--config",config,"--baseline",base],[{"data":[{"id":"x/y"},{"id":"missing"}]},{"models":[M]},D,schema]),0)
+   self.assertEqual(json.loads(out.read_text())["quarantined"],["missing"])
+   managed={"id":"missing","name":"Missing","reasoning":False,"input":["text"],"contextWindow":1,"maxTokens":1};config.write_text(json.dumps({"providers":{"WandB-Inference":{"models":[managed]}}}))
+   self.assertEqual(self.cli(["--output",out,"--state",state,"--config",config,"--baseline",base],[{"data":[{"id":"missing"}]},{"models":[M]},D,schema]),2)
+   blocked=json.loads(out.read_text());self.assertIn("unmapped:missing",blocked["errors"]);self.assertEqual(blocked["quarantined"],[])
  def test_two_checks_persist_then_report_lifecycle(self):
   with tempfile.TemporaryDirectory() as tmp:
    root=Path(tmp); state=root/"state.json"; config=root/"models.json"; wanted={"id":"x/y","name":"X","reasoning":False,"input":["text"],"contextWindow":262144,"maxTokens":32768};config.write_text(json.dumps({"providers":{"WandB-Inference":{"models":[wanted]}}}));schema={"x":1};digest=hashlib.sha256(json.dumps(schema,sort_keys=True,separators=(",",":")).encode()).hexdigest();base=root/"baseline";base.write_text(json.dumps({"source":sync.OPENAPI,"retrievedAt":"x","canonicalization":"json.dumps(sort_keys=True,separators=(',', ':'))/sha256-v1","sha256":digest}));first=Path(".pi_tmp/wandb-model-sync/test-first.json");second=Path(".pi_tmp/wandb-model-sync/test-second.json")

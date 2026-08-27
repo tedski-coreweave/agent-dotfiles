@@ -92,7 +92,10 @@ def main():
    elif baseline(a.baseline)["sha256"]!=digest:raise Failure("OpenAPI schema hash changed")
    report["models"],report["errors"]=reconcile(endpoint,cat,dev)
    report["catalogLifecycle"]={m.get("idPlayground"):m.get("lifecycleStage") for m in cat.get("models",[]) if isinstance(m,dict)}
-  config=json.loads(a.config.read_text()); current=config["providers"]["WandB-Inference"]["models"]; wanted=[{k:m[k] for k in ("id","name","reasoning","input","contextWindow","maxTokens")} for m in report.get("models",[])]
+  config=json.loads(a.config.read_text()); current=config["providers"]["WandB-Inference"]["models"]; managed={model["id"] for model in current}; wanted=[{k:m[k] for k in ("id","name","reasoning","input","contextWindow","maxTokens")} for m in report.get("models",[])]
+  quarantined=[error.removeprefix("unmapped:") for error in report["errors"] if error.startswith("unmapped:") and error.removeprefix("unmapped:") not in managed]
+  report["quarantined"]=quarantined
+  report["errors"]=[error for error in report["errors"] if error.removeprefix("unmapped:") not in quarantined]
   prior_path=a.previous_snapshot or a.state
   previous=[]
   if prior_path.exists():

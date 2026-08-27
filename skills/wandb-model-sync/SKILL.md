@@ -22,9 +22,10 @@ python3 skills/wandb-model-sync/scripts/sync.py \
 Before the first check, review the fetched OpenAPI schema and establish its
 tracked hash explicitly with `--write-openapi-baseline`. Ordinary checks require
 that baseline. Exit `0` means the configuration matches. Exit `1` means a
-reviewed update is needed. Exit `2` means the sources disagree, a field is
-missing, the schema changed, or retrieval failed. Never treat exit `2` as a
-model removal.
+reviewed update is needed. Exit `2` means a managed model has missing or
+conflicting metadata, the schema changed, or retrieval failed. Never treat exit
+`2` as a model removal. An unmatched remote model outside the configured
+provider is quarantined in the report and does not block the managed catalog.
 
 The script uses the authenticated Inference API for account-visible IDs, W&B's
 catalog for lifecycle and capabilities, and W&B's models.dev catalog for output
