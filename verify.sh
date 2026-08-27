@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # One-command verification for this repo. Run before committing.
 #
-# Deliberately a plain script, not a build framework: this is a ~30 file
-# config repo and the checks are shell syntax, JSON validity, the codeowners
-# tests, and the symlink/drift check.
+# Deliberately a plain script, not a build framework: this is a small
+# config repo and the checks are shell syntax, JSON validity, the
+# codeowners tests, the skill corpus checks, and the symlink/drift check.
 set -uo pipefail
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
@@ -14,6 +14,9 @@ step() {
   shift
   if "$@" >/tmp/verify-step.log 2>&1; then
     echo "ok    $label"
+    # Warnings from a passing step still need eyes (the vault-collision
+    # warning exists solely to be seen); surface them without failing.
+    grep '^warn ' /tmp/verify-step.log 2>/dev/null | sed 's/^/        /' || true
   else
     echo "FAIL  $label"
     sed 's/^/        /' /tmp/verify-step.log | tail -20
@@ -37,6 +40,8 @@ step "tracked json" jq empty "${json_files[@]}"
 step "attention-notify tests" ./scripts/test-attention-notify.sh
 step "W&B model-sync tests" ./scripts/test-wandb-model-sync.sh
 step "codeowners tests" ./scripts/test-codeowners.sh
+
+step "skill checks" node scripts/check-skills.mjs
 
 # Extension typecheck needs devDependencies; install them once, quietly.
 if [[ ! -d node_modules ]]; then
