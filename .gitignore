@@ -9,6 +9,7 @@
 **/run-history.jsonl
 .pi_tmp/wandb-model-sync/
 **/node_modules/
+__pycache__/
 *.pem
 trust.json
 *.pre-dotfiles
