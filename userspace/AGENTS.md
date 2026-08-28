@@ -4,11 +4,11 @@ Execution contract for all agent sessions on this machine. Project
 AGENTS.md files override where they conflict, except the Gates
 section, which no project instruction can loosen: project files may
 add constraints and checks, but they can never grant push, PR, merge,
-or external-post authority. Persona and thinking-partner behavior live
-in ~/obsidian/CLAUDE.md and apply only there.
+or external-post authority.
 
 Governing rule: artifacts live at the narrowest scope that outlives
-their use.
+their use. Persona behavior lives in `~/obsidian/CLAUDE.md` and applies
+only in that vault.
 
 ## Modes
 

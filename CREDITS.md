@@ -8,8 +8,8 @@ relationship. They do not imply that every file is a verbatim copy.
   - Adapted source for `SUITABLE_MODELS.md`, `wandb-model-sync`, and the attention-notify extension.
   - Composite influence on `skills/writing-voice`.
 - Matt Pocock, [skills](https://github.com/mattpocock/skills)
-  - Adapted sources for `skills/retro`, `skills/wizard`, and
-    `skills/writing-for-agents`.
+  - Adapted sources for `skills/retro`, `skills/thinking-partner`,
+    `skills/wizard`, and `skills/writing-for-agents`.
 - Cursor, [pstack skills](https://github.com/cursor/plugins/tree/main/pstack/skills)
   - Adapted sources for `skills/blast-radius` and `skills/why`.
   - Source for the un-slop ideas folded into `skills/writing-voice`.
