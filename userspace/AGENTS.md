@@ -141,6 +141,20 @@ When a CLI and an MCP server overlap, the CLI wins.
   file. Last-match-wins semantics make grep results wrong often
   enough that grepping it is a bug.
 
+## Vault delegation
+
+These rules are subject to the active mode.
+
+- For deferred change awareness, write one isolated note in
+  `~/obsidian/00_Inbox/` without approval.
+- When the current task needs vault context, dispatch a bounded read-only
+  subagent with `cwd: ~/obsidian`. The parent owns task decisions.
+- Before editing elsewhere in the vault, ask unless the user explicitly
+  requested that vault change. Once authorized, dispatch a subagent with
+  `cwd: ~/obsidian` scoped to the named work. It may update relevant project
+  and hub notes, but does not run daily review, weekly synthesis, or inbox
+  processing.
+
 ## Context pointers
 
 - Glossary (people, channels, quirks): ~/obsidian/06_Metadata/Glossary.md.
