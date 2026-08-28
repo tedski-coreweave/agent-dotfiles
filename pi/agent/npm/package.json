@@ -2,7 +2,7 @@
   "name": "pi-extensions",
   "private": true,
   "dependencies": {
-    "pi-devin-auth": "^0.1.2",
+    "pi-devin-provider": "^0.1.0",
     "pi-mcp-adapter": "^2.29.0",
     "pi-parallel-sessions": "^0.2.8",
     "pi-rewind": "^0.5.0",
