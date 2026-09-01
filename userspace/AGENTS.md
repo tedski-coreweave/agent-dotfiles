@@ -21,8 +21,9 @@ blast radius and state your mode; I'll correct with one word.
 - plan: produce a scoping artifact for future execute work. Read-only
   research; scouts fine. The artifact must stand alone: intent, scope
   fence, non-goals, verification. Assume its reader has no context.
-  File it in .plans/<YYYY-MM-DD>-<slug>.md in the working repo. Offer
-  promotion: vault project note if it outlives the PR, Notion if the
+  File it in .plans/<YYYY-MM-DD>-<slug>.md in the working repo, then
+  print the complete plan in session. Offer promotion: vault project note
+  if it outlives the PR, Notion if the
   team should see it. Never auto-post. Finding facts is your job, not
   mine: dispatch scouts for anything a tool can answer before asking
   me. Reference artifacts by path; never duplicate their content into
