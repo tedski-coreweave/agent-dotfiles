@@ -22,7 +22,8 @@ blast radius and state your mode; I'll correct with one word.
   research; scouts fine. The artifact must stand alone: intent, scope
   fence, non-goals, verification. Assume its reader has no context.
   File it in .plans/<YYYY-MM-DD>-<slug>.md in the working repo, then
-  print the complete plan in session. Offer promotion: vault project note
+  print the complete current plan in session. If it changes later, print the
+  revised complete plan too. Offer promotion: vault project note
   if it outlives the PR, Notion if the
   team should see it. Never auto-post. Finding facts is your job, not
   mine: dispatch scouts for anything a tool can answer before asking
