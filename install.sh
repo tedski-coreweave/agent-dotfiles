@@ -34,6 +34,7 @@ LINKS=(
   "pi/agent/extensions/codeowners/resolve.ts:$HOME/.pi/agent/extensions/codeowners/resolve.ts"
   "pi/agent/extensions/attention-notify.ts:$HOME/.pi/agent/extensions/attention-notify.ts"
   "skills:$HOME/.agents/skills"
+  "herdr/config.toml:$HOME/.config/herdr/config.toml"
   "zsh/agents.zsh:$HOME/.oh-my-zsh/custom/agents.zsh"
   "shell/gitignore.d/50-agents:$CONFIG_HOME/git/ignore.d/50-agents"
 )
