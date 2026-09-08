@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.85.0",
+  "lastChangelogVersion": "0.85.1",
   "theme": "dark",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.6-terra",
@@ -9,7 +9,8 @@
     "npm:pi-mcp-adapter",
     "npm:pi-subagents",
     "npm:pi-rewind",
-    "npm:pi-devin-provider"
+    "npm:pi-devin-provider",
+    "npm:@qraxiss/pi-gemini-auth"
   ],
   "httpIdleTimeoutMs": 30000,
   "outputPad": 0,
