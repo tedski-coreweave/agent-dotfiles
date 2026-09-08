@@ -9,8 +9,7 @@
     "npm:pi-mcp-adapter",
     "npm:pi-subagents",
     "npm:pi-rewind",
-    "npm:pi-devin-provider",
-    "npm:@qraxiss/pi-gemini-auth"
+    "npm:pi-devin-provider"
   ],
   "httpIdleTimeoutMs": 30000,
   "outputPad": 0,
