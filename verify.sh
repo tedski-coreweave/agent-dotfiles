@@ -25,7 +25,7 @@ step() {
 }
 
 step "shell syntax" bash -n install.sh pi/refresh-netskope-ca.sh verify.sh \
-  scripts/test-attention-notify.sh scripts/test-codeowners.sh scripts/test-wandb-model-sync.sh
+  scripts/test-attention-notify.sh scripts/test-codeowners.sh scripts/test-model-matrix.sh scripts/test-wandb-model-sync.sh
 
 json_files=(
   pi/agent/settings.json
@@ -39,6 +39,8 @@ step "tracked json" jq empty "${json_files[@]}"
 
 step "attention-notify tests" ./scripts/test-attention-notify.sh
 step "W&B model-sync tests" ./scripts/test-wandb-model-sync.sh
+step "model matrix tests" ./scripts/test-model-matrix.sh
+step "model matrix coverage" node scripts/check-model-matrix.mjs
 step "codeowners tests" ./scripts/test-codeowners.sh
 
 step "skill checks" node scripts/check-skills.mjs

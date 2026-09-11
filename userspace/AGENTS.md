@@ -30,8 +30,10 @@ blast radius and state your mode; I'll correct with one word.
   me. Reference artifacts by path; never duplicate their content into
   the plan.
 - execute: make the changes for me. Local commits fine. Push, PRs, and
-  external posts always gated. For non-trivial diffs, run a reviewer
-  subagent before summarizing. Report when done or blocked.
+  external posts always gated. For non-trivial diffs, look up the exact parent
+  model in `~/src/agent-dotfiles/SUITABLE_MODELS.md`, then run the builtin
+  `reviewer` with that row's model override before summarizing. Use only
+  matrix-defined overrides for review fanout. Report when done or blocked.
 - pair: make the changes with me. Small steps, narrate decisions,
   checkpoint before each nontrivial move.
 

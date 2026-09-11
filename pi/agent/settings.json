@@ -15,5 +15,24 @@
   "outputPad": 0,
   "warnings": {
     "anthropicExtraUsage": false
+  },
+  "subagents": {
+    "modelScope": {
+      "enforce": true,
+      "strict": true,
+      "agents": {
+        "reviewer": {
+          "allow": [
+            "anthropic/claude-haiku-4-5",
+            "anthropic/claude-opus-5",
+            "anthropic/claude-sonnet-5",
+            "openai-codex/gpt-5.4-mini",
+            "openai-codex/gpt-5.6-sol",
+            "openai-codex/gpt-5.6-terra",
+            "WandB-Inference/moonshotai/Kimi-K2.7-Code"
+          ]
+        }
+      }
+    }
   }
 }
