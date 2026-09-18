@@ -24,11 +24,14 @@
         "reviewer": {
           "allow": [
             "anthropic/claude-haiku-4-5",
+            "anthropic/claude-haiku-4-5-20251001",
             "anthropic/claude-opus-5",
             "anthropic/claude-sonnet-5",
             "openai-codex/gpt-5.4-mini",
             "openai-codex/gpt-5.6-sol",
             "openai-codex/gpt-5.6-terra",
+            "openai-codex/gpt-6-astra",
+            "WandB-Inference/deepseek-ai/DeepSeek-V4-Pro",
             "WandB-Inference/moonshotai/Kimi-K2.7-Code"
           ]
         }
