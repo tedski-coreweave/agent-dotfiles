@@ -54,7 +54,8 @@ Modes never loosen approval gates.
   shared or merged history.
 - Never work around IT policy, permissions, or auth failures. Stop and
   ask. Never request, echo, or embed raw secrets; this machine uses
-  1Password (`op read`) indirection.
+  1Password (`op read`) indirection. For vault Firecrawl scripts, resolve the
+  key only for that command: `FIRECRAWL_API_KEY="$(op read 'op://Employee/Firecrawl API Key/credential')" pnpm firecrawl:scrape ...`.
 
 ## Git
 
