@@ -134,7 +134,9 @@ for (const selector of liveSet) {
 }
 for (const selector of allowed) {
   const row = coverage.get(selector)?.[0];
-  if (!row || row.status !== "routed" || !/review/.test(row.home)) {
+  const aliasTarget = row?.status === "alias" ? row.home.match(/`([^`]+)`/)?.[1] : undefined;
+  const canonical = aliasTarget ? coverage.get(aliasTarget)?.[0] : row;
+  if (!canonical || canonical.status !== "routed" || !/review/.test(canonical.home)) {
     errors.push(`allowed reviewer model is not routed to review in matrix: ${selector}`);
   }
 }

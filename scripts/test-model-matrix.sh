@@ -10,6 +10,7 @@ provider         model  context  max-out  thinking  images
 anthropic        a      1M       1K       yes       no
 anthropic        a-pin  1M       1K       yes       no
 openai-codex     o      1M       1K       yes       no
+WandB-Inference  org/model  1M       1K       yes       no
 EOF
 
 cat >"$tmp/guide.md" <<'EOF'
@@ -19,6 +20,7 @@ cat >"$tmp/guide.md" <<'EOF'
 | `anthropic/a` | `openai-codex/o` |
 | `anthropic/a-pin` | `openai-codex/o` |
 | `openai-codex/o` | `anthropic/a` |
+| `WandB-Inference/org/model` | `anthropic/a` |
 <!-- reviewer-routing:end -->
 <!-- model-catalog:start -->
 | Selector | Status | Home |
@@ -26,6 +28,7 @@ cat >"$tmp/guide.md" <<'EOF'
 | `anthropic/a` | routed | complementary native review |
 | `anthropic/a-pin` | alias | `anthropic/a` |
 | `openai-codex/o` | routed | complementary native review |
+| `WandB-Inference/org/model` | routed | model-paired review |
 <!-- model-catalog:end -->
 EOF
 
@@ -35,7 +38,7 @@ cat >"$tmp/settings.json" <<'EOF'
     "modelScope": {
       "enforce": true,
       "strict": true,
-      "agents": { "reviewer": { "allow": ["anthropic/a", "openai-codex/o"] } }
+      "agents": { "reviewer": { "allow": ["anthropic/a", "anthropic/a-pin", "openai-codex/o", "WandB-Inference/org/model"] } }
     }
   }
 }

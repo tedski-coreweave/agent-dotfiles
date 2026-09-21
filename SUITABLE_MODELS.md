@@ -17,7 +17,7 @@ metadata in `pi/agent/models.json`.
 | --- | --- | --- | --- | --- |
 | Daily driver | `anthropic/claude-sonnet-5`, medium | `openai-codex/gpt-5.6-terra`, medium | parked | `WandB-Inference/zai-org/GLM-5.2` |
 | Long-horizon coding escalation | `anthropic/claude-opus-5`, high/xhigh | `openai-codex/gpt-5.6-sol`, high | `devin/swe-1-7` | `WandB-Inference/moonshotai/Kimi-K2.7-Code`, `WandB-Inference/MiniMaxAI/MiniMax-M3` |
-| Model-paired native review | `anthropic/claude-haiku-4-5`, `anthropic/claude-sonnet-5`, `anthropic/claude-opus-5` | `openai-codex/gpt-5.4-mini`, `openai-codex/gpt-5.6-terra`, `openai-codex/gpt-5.6-sol` | parked | parked |
+| Model-paired native review | `anthropic/claude-haiku-4-5`, `anthropic/claude-sonnet-5`, `anthropic/claude-opus-5` | `openai-codex/gpt-5.4-mini`, `openai-codex/gpt-5.6-terra`, `openai-codex/gpt-5.6-sol`, `openai-codex/gpt-6-astra` | parked | `WandB-Inference/deepseek-ai/DeepSeek-V4-Pro` |
 | Explicit third-leg review | — | — | — | `WandB-Inference/moonshotai/Kimi-K2.7-Code` |
 | Very large context analysis | `anthropic/claude-fable-5` | — | — | `WandB-Inference/deepseek-ai/DeepSeek-V4-Pro` |
 | Cheap helper chores | `anthropic/claude-haiku-4-5` | `openai-codex/gpt-5.4-mini` | parked | `WandB-Inference/Qwen/Qwen3.5-35B-A3B`, `WandB-Inference/openai/gpt-oss-120b` |
@@ -128,11 +128,11 @@ entry. Parked models remain selectable but are not automatic choices.
 | `openai-codex/gpt-5.6-luna` | parked | available, not yet routed |
 | `openai-codex/gpt-5.6-sol` | routed | long-horizon coding escalation; model-paired review |
 | `openai-codex/gpt-5.6-terra` | routed | daily driver; complementary native review |
-| `openai-codex/gpt-6-astra` | parked | available, not yet routed |
+| `openai-codex/gpt-6-astra` | routed | model-paired review |
 | `WandB-Inference/deepseek-ai/DeepSeek-V3.1` | parked | available, not yet routed |
 | `WandB-Inference/deepseek-ai/DeepSeek-V4-Flash` | parked | available, not yet routed |
 | `WandB-Inference/deepseek-ai/DeepSeek-V4-Flash-0731` | parked | available, not yet routed; 262,144-token configured limit differs from V4 Flash |
-| `WandB-Inference/deepseek-ai/DeepSeek-V4-Pro` | routed | very large context analysis |
+| `WandB-Inference/deepseek-ai/DeepSeek-V4-Pro` | routed | very large context analysis; model-paired review |
 | `WandB-Inference/deepseek-ai/DeepSeek-V4-Pro-0813` | alias | `WandB-Inference/deepseek-ai/DeepSeek-V4-Pro` |
 | `WandB-Inference/google/gemma-4-31B-it` | parked | available, not yet routed |
 | `WandB-Inference/ibm-granite/granite-4.1-8b` | parked | available, not yet routed |
