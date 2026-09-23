@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.85.1",
+  "lastChangelogVersion": "0.87.1",
   "theme": "dark",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.6-terra",
@@ -12,6 +12,12 @@
     "npm:pi-devin-provider",
     "npm:pi-powerline"
   ],
+  "powerline": true,
+  "breadcrumb": "inner",
+  "footer": true,
+  "footer-mcp": true,
+  "header": false,
+  "header-info": false,
   "httpIdleTimeoutMs": 30000,
   "outputPad": 0,
   "warnings": {
@@ -29,21 +35,16 @@
             "anthropic/claude-opus-5",
             "anthropic/claude-sonnet-5",
             "openai-codex/gpt-5.6-sol",
+            "openai-codex/gpt-6-luna",
+            "openai-codex/gpt-6-sol",
             "openai-codex/gpt-5.6-terra",
             "openai-codex/gpt-6-astra",
             "WandB-Inference/deepseek-ai/DeepSeek-V4-Pro",
-            "WandB-Inference/moonshotai/Kimi-K2.7-Code",
-            "openai-codex/gpt-6-luna",
-            "openai-codex/gpt-6-sol"
+            "WandB-Inference/moonshotai/Kimi-K2.7-Code"
           ]
         }
       }
     }
   },
-  "powerline": true,
-  "breadcrumb": "inner",
-  "footer": true,
-  "footer-mcp": true,
-  "header": false,
-  "header-info": false
+  "steeringMode": "all"
 }
