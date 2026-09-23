@@ -9,7 +9,8 @@
     "npm:pi-mcp-adapter",
     "npm:pi-subagents",
     "npm:pi-rewind",
-    "npm:pi-devin-provider"
+    "npm:pi-devin-provider",
+    "npm:pi-powerline"
   ],
   "httpIdleTimeoutMs": 30000,
   "outputPad": 0,
@@ -27,15 +28,22 @@
             "anthropic/claude-haiku-4-5-20251001",
             "anthropic/claude-opus-5",
             "anthropic/claude-sonnet-5",
-            "openai-codex/gpt-5.4-mini",
             "openai-codex/gpt-5.6-sol",
             "openai-codex/gpt-5.6-terra",
             "openai-codex/gpt-6-astra",
             "WandB-Inference/deepseek-ai/DeepSeek-V4-Pro",
-            "WandB-Inference/moonshotai/Kimi-K2.7-Code"
+            "WandB-Inference/moonshotai/Kimi-K2.7-Code",
+            "openai-codex/gpt-6-luna",
+            "openai-codex/gpt-6-sol"
           ]
         }
       }
     }
-  }
+  },
+  "powerline": true,
+  "breadcrumb": "inner",
+  "footer": true,
+  "footer-mcp": true,
+  "header": false,
+  "header-info": false
 }

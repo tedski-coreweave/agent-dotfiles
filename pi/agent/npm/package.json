@@ -6,6 +6,7 @@
     "pi-mcp-adapter": "^2.34.0",
     "pi-parallel-sessions": "^0.2.8",
     "pi-rewind": "^0.5.0",
-    "pi-subagents": "^0.69.0"
+    "pi-subagents": "^0.69.0",
+    "pi-powerline": "^0.10.0"
   }
 }

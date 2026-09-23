@@ -1,6 +1,10 @@
 # Agent harness environment. Deployed to ~/.oh-my-zsh/custom/agents.zsh
 # by ~/src/agent-dotfiles/install.sh (oh-my-zsh auto-sources custom/*.zsh).
 
+# Powerlevel10k uses Nerd Font v3 glyphs. tmux obscures the terminal identity
+# pi-powerline uses for detection, so keep its icons enabled explicitly.
+export PI_NERD_FONTS=1
+
 # Netskope TLS interception: node-based tooling needs the corporate CA
 # bundle or HTTPS breaks. Refresh the bundle with ~/.pi/refresh-netskope-ca.sh.
 #

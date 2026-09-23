@@ -141,6 +141,28 @@
           "maxTokens": 1048576
         },
         {
+          "id": "deepseek-ai/DeepSeek-V4.1-Flash",
+          "name": "DeepSeek V4.1-Flash",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 1048576,
+          "maxTokens": 1048576
+        },
+        {
+          "id": "google/gemma-4-26B-A4B-it",
+          "name": "Google Gemma 4 26B A4B Instruct",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 262144,
+          "maxTokens": 262144
+        },
+        {
           "id": "google/gemma-4-31B-it",
           "name": "Google Gemma 4 31B",
           "reasoning": true,
