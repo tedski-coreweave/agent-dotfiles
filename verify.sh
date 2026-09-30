@@ -30,7 +30,7 @@ step "shell syntax" bash -n install.sh pi/refresh-netskope-ca.sh verify.sh \
 json_files=(
   pi/agent/settings.json
   pi/agent/models.json
-  pi/agent/mcp.json
+  pi/agent/mcp-adapter.json
   pi/agent/trust.json.example
   pi/agent/npm/package.json
   pi/agent/npm/package-lock.json

@@ -26,7 +26,7 @@ LINKS=(
   "pi/refresh-netskope-ca.sh:$HOME/.pi/refresh-netskope-ca.sh"
   "pi/agent/settings.json:$HOME/.pi/agent/settings.json"
   "pi/agent/models.json:$HOME/.pi/agent/models.json"
-  "pi/agent/mcp.json:$HOME/.pi/agent/mcp.json"
+  "pi/agent/mcp-adapter.json:$HOME/.pi/agent/mcp-adapter.json"
   "pi/agent/keybindings.json:$HOME/.pi/agent/keybindings.json"
   "pi/agent/npm/package.json:$HOME/.pi/agent/npm/package.json"
   "pi/agent/npm/package-lock.json:$HOME/.pi/agent/npm/package-lock.json"

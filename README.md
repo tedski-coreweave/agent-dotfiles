@@ -13,7 +13,7 @@ live file; same inode), review the diff here, commit with intent.
 | Path | Deploys to |
 |---|---|
 | `userspace/AGENTS.md` | `~/.pi/agent/AGENTS.md` (global agent instructions) |
-| `pi/agent/{settings,models,mcp}.json` | `~/.pi/agent/` |
+| `pi/agent/{settings,models,mcp-adapter}.json` | `~/.pi/agent/` |
 | `pi/agent/npm/package{,-lock}.json` | `~/.pi/agent/npm/` |
 | `pi/agent/extensions/codeowners/*` | `~/.pi/agent/extensions/codeowners/` |
 | `pi/agent/extensions/attention-notify.ts` | `~/.pi/agent/extensions/` |
