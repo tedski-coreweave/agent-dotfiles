@@ -10,6 +10,7 @@ provider         model  context  max-out  thinking  images
 anthropic        a      1M       1K       yes       no
 anthropic        a-pin  1M       1K       yes       no
 openai-codex     o      1M       1K       yes       no
+openai-codex     unavailable  1M     1K       yes       no
 WandB-Inference  org/model  1M       1K       yes       no
 EOF
 
@@ -22,6 +23,11 @@ cat >"$tmp/guide.md" <<'EOF'
 | `openai-codex/o` | `anthropic/a` |
 | `WandB-Inference/org/model` | `anthropic/a` |
 <!-- reviewer-routing:end -->
+<!-- model-matrix-exclusions:start -->
+| Selector | Reason |
+| --- | --- |
+| `openai-codex/unavailable` | unavailable in this test fixture |
+<!-- model-matrix-exclusions:end -->
 <!-- model-catalog:start -->
 | Selector | Status | Home |
 | --- | --- | --- |
@@ -67,9 +73,17 @@ cp "$tmp/guide.md" "$tmp/missing.md"
 perl -0pi -e 's/^\| `anthropic\/a` \| routed \|.*\n//m' "$tmp/missing.md"
 expect_failure "$tmp/missing.md" "missing matrix home: anthropic/a"
 
+cp "$tmp/guide.md" "$tmp/stale-exclusion.md"
+perl -0pi -e 's/openai-codex\/unavailable/openai-codex\/missing/' "$tmp/stale-exclusion.md"
+expect_failure "$tmp/stale-exclusion.md" "stale matrix exclusion: openai-codex/missing"
+
 cp "$tmp/guide.md" "$tmp/duplicate.md"
 perl -0pi -e 's/(<!-- model-catalog:end -->)/| `anthropic\/a` | routed | complementary native review |\n$1/' "$tmp/duplicate.md"
 expect_failure "$tmp/duplicate.md" "duplicate matrix home: anthropic/a"
+
+cp "$tmp/guide.md" "$tmp/duplicate-exclusion.md"
+perl -0pi -e 's/(<!-- model-matrix-exclusions:end -->)/| `openai-codex\/unavailable` | duplicated exclusion |\n$1/' "$tmp/duplicate-exclusion.md"
+expect_failure "$tmp/duplicate-exclusion.md" "duplicate matrix exclusion: openai-codex/unavailable"
 
 cp "$tmp/guide.md" "$tmp/missing-route.md"
 perl -0pi -e 's/^\| `anthropic\/a-pin` \| `openai-codex\/o` \|\n//m' "$tmp/missing-route.md"

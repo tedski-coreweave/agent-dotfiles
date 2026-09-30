@@ -30,6 +30,17 @@ function selectorProvider(selector) {
   return selector.slice(0, selector.indexOf("/"));
 }
 
+function parseMatrixExclusions(guide) {
+  const exclusions = new Set();
+  for (const line of marked(guide, "model-matrix-exclusions").split(/\r?\n/)) {
+    const match = line.match(/^\| `([^`]+)` \| (.+) \|$/);
+    if (!match) continue;
+    if (exclusions.has(match[1])) errors.push(`duplicate matrix exclusion: ${match[1]}`);
+    exclusions.add(match[1]);
+  }
+  return exclusions;
+}
+
 function readLiveModels() {
   if (modelsFile) return readFileSync(resolve(modelsFile), "utf8");
   const result = spawnSync("pi", ["--list-models"], { encoding: "utf8" });
@@ -73,8 +84,12 @@ for (const line of marked(guide, "reviewer-routing").split(/\r?\n/)) {
   if (match) routingRows.push({ parent: match[1], reviewer: match[2] });
 }
 
+const excludedSelectors = parseMatrixExclusions(guide);
 const liveModels = parseLiveModels(readLiveModels());
-const liveSet = new Set(liveModels.keys());
+for (const selector of excludedSelectors) {
+  if (!liveModels.has(selector)) errors.push(`stale matrix exclusion: ${selector}`);
+}
+const liveSet = new Set([...liveModels.keys()].filter((selector) => !excludedSelectors.has(selector)));
 const coverage = new Map();
 for (const row of catalogRows) {
   const rows = coverage.get(row.selector) ?? [];
@@ -143,5 +158,5 @@ for (const selector of allowed) {
 
 for (const error of errors) console.error(`ERROR ${error}`);
 const providers = new Set([...liveSet].map(selectorProvider));
-console.log(`check-model-matrix: ${liveSet.size} models, ${providers.size} providers, ${errors.length} error(s)`);
+console.log(`check-model-matrix: ${liveSet.size} models, ${providers.size} providers, ${excludedSelectors.size} excluded, ${errors.length} error(s)`);
 process.exit(errors.length ? 1 : 0);

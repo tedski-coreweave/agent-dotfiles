@@ -307,6 +307,41 @@
           "maxTokens": 1048576
         }
       ]
+    },
+    "CRWV-LiteLLM": {
+      "baseUrl": "https://litellm.s001db-us-east-06a-idp-stag.coreweave.app/v1",
+      "api": "openai-completions",
+      "apiKey": "!op read 'op://Employee/cw-lightllm-vk/password'",
+      "models": [
+        {
+          "id": "cw-kimi-k3",
+          "name": "CoreWeave Kimi K3",
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": null,
+            "high": "high",
+            "xhigh": null,
+            "max": "max"
+          },
+          "input": [
+            "text"
+          ],
+          "contextWindow": 1048576,
+          "maxTokens": 262000,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "supportsReasoningEffort": true
+          }
+        }
+      ]
     }
   }
 }

@@ -16,11 +16,11 @@ metadata in `pi/agent/models.json`.
 | Workload | Anthropic | OpenAI Codex | Devin | W&B Inference |
 | --- | --- | --- | --- | --- |
 | Daily driver | `anthropic/claude-sonnet-5`, medium | `openai-codex/gpt-5.6-terra`, medium | parked | `WandB-Inference/zai-org/GLM-5.2` |
-| Long-horizon coding escalation | `anthropic/claude-opus-5`, high/xhigh | `openai-codex/gpt-6-sol`, high | `devin/swe-1-7` | `WandB-Inference/moonshotai/Kimi-K2.7-Code`, `WandB-Inference/MiniMaxAI/MiniMax-M3` |
-| Model-paired native review | `anthropic/claude-haiku-4-5`, `anthropic/claude-sonnet-5`, `anthropic/claude-opus-5` | `openai-codex/gpt-6-luna`, `openai-codex/gpt-5.6-terra`, `openai-codex/gpt-6-sol`, `openai-codex/gpt-6-astra` | parked | `WandB-Inference/deepseek-ai/DeepSeek-V4-Pro` |
+| Long-horizon coding escalation | `anthropic/claude-opus-5`, high/xhigh | `openai-codex/gpt-5.6-sol`, high | `devin/swe-1-7` | `WandB-Inference/moonshotai/Kimi-K2.7-Code`, `WandB-Inference/MiniMaxAI/MiniMax-M3` |
+| Model-paired native review | `anthropic/claude-haiku-4-5`, `anthropic/claude-sonnet-5`, `anthropic/claude-opus-5` | `openai-codex/gpt-5.6-luna`, `openai-codex/gpt-5.6-terra`, `openai-codex/gpt-5.6-sol` | parked | `WandB-Inference/deepseek-ai/DeepSeek-V4-Pro` |
 | Explicit third-leg review | — | — | — | `WandB-Inference/moonshotai/Kimi-K2.7-Code` |
 | Very large context analysis | `anthropic/claude-fable-5` | — | — | `WandB-Inference/deepseek-ai/DeepSeek-V4-Pro` |
-| Cheap helper chores | `anthropic/claude-haiku-4-5` | `openai-codex/gpt-6-luna` | parked | `WandB-Inference/Qwen/Qwen3.5-35B-A3B`, `WandB-Inference/openai/gpt-oss-120b` |
+| Cheap helper chores | `anthropic/claude-haiku-4-5` | `openai-codex/gpt-5.6-luna` | parked | `WandB-Inference/Qwen/Qwen3.5-35B-A3B`, `WandB-Inference/openai/gpt-oss-120b` |
 
 The actual parent default lives in `pi/agent/settings.json`. This guide does
 not duplicate it.
@@ -38,19 +38,21 @@ invented peer ranking. Explicit review fanout may add the third leg above.
 | --- | --- |
 | `anthropic/claude-fable-5` | `openai-codex/gpt-5.6-sol` |
 | `anthropic/claude-fable-5-1` | `openai-codex/gpt-5.6-sol` |
-| `anthropic/claude-haiku-4-5` | `openai-codex/gpt-6-luna` |
-| `anthropic/claude-haiku-4-5-20251001` | `openai-codex/gpt-6-luna` |
+| `anthropic/claude-haiku-4-5` | `openai-codex/gpt-5.6-luna` |
+| `anthropic/claude-haiku-4-5-20251001` | `openai-codex/gpt-5.6-luna` |
 | `anthropic/claude-opus-4-5` | `openai-codex/gpt-5.6-sol` |
 | `anthropic/claude-opus-4-5-20251101` | `openai-codex/gpt-5.6-sol` |
 | `anthropic/claude-opus-4-6` | `openai-codex/gpt-5.6-sol` |
 | `anthropic/claude-opus-4-7` | `openai-codex/gpt-5.6-sol` |
 | `anthropic/claude-opus-4-8` | `openai-codex/gpt-5.6-sol` |
-| `anthropic/claude-opus-5` | `openai-codex/gpt-6-sol` |
-| `anthropic/claude-opus-5-5` | `openai-codex/gpt-6-sol` |
+| `anthropic/claude-opus-5` | `openai-codex/gpt-5.6-sol` |
+| `anthropic/claude-opus-5-5` | `openai-codex/gpt-5.6-sol` |
 | `anthropic/claude-sonnet-4-5` | `openai-codex/gpt-5.6-terra` |
 | `anthropic/claude-sonnet-4-5-20250929` | `openai-codex/gpt-5.6-terra` |
 | `anthropic/claude-sonnet-4-6` | `openai-codex/gpt-5.6-terra` |
 | `anthropic/claude-sonnet-5` | `openai-codex/gpt-5.6-terra` |
+| `anthropic/claude-sonnet-5-5` | `openai-codex/gpt-5.6-terra` |
+| `CRWV-LiteLLM/cw-kimi-k3` | `anthropic/claude-opus-5` |
 | `devin/swe-1-6` | `anthropic/claude-opus-5` |
 | `devin/swe-1-7` | `anthropic/claude-opus-5` |
 | `openai-codex/gpt-5.3-codex-spark` | `anthropic/claude-haiku-4-5` |
@@ -58,9 +60,6 @@ invented peer ranking. Explicit review fanout may add the third leg above.
 | `openai-codex/gpt-5.6-luna` | `anthropic/claude-sonnet-5` |
 | `openai-codex/gpt-5.6-sol` | `anthropic/claude-opus-5` |
 | `openai-codex/gpt-5.6-terra` | `anthropic/claude-sonnet-5` |
-| `openai-codex/gpt-6-astra` | `anthropic/claude-opus-5` |
-| `openai-codex/gpt-6-luna` | `anthropic/claude-sonnet-5` |
-| `openai-codex/gpt-6-sol` | `anthropic/claude-opus-5` |
 | `WandB-Inference/deepseek-ai/DeepSeek-V3.1` | `anthropic/claude-sonnet-5` |
 | `WandB-Inference/deepseek-ai/DeepSeek-V4-Flash` | `anthropic/claude-sonnet-5` |
 | `WandB-Inference/deepseek-ai/DeepSeek-V4-Flash-0731` | `anthropic/claude-sonnet-5` |
@@ -99,11 +98,27 @@ parent. If that parent is also an approved review target, including the default
 `openai-codex/gpt-5.6-terra`, the mistake does not fail. The override is
 mandatory. Trusted project settings can replace the user scope.
 
+## Temporary matrix exclusions
+
+These selectors are present in Pi's provider registry but are intentionally
+omitted from the catalog and reviewer routing until the configured account can
+use them.
+
+<!-- model-matrix-exclusions:start -->
+| Selector | Reason |
+| --- | --- |
+| `openai-codex/gpt-6-astra` | unavailable on the configured OpenAI API account |
+| `openai-codex/gpt-6-luna` | unavailable on the configured OpenAI API account |
+| `openai-codex/gpt-6-sol` | unavailable on the configured OpenAI API account |
+| `openai-codex/gpt-6.1-sol` | unavailable on the configured OpenAI API account |
+<!-- model-matrix-exclusions:end -->
+
 ## Catalog coverage
 
 Every selector emitted by `pi --list-models` appears exactly once in this
-block. Routes refer to the workload table above. Aliases name their canonical
-entry. Parked models remain selectable but are not automatic choices.
+block unless it is listed in Temporary matrix exclusions. Routes refer to the
+workload table above. Aliases name their canonical entry. Parked models remain
+selectable but are not automatic choices.
 
 <!-- model-catalog:start -->
 | Selector | Status | Home |
@@ -123,16 +138,15 @@ entry. Parked models remain selectable but are not automatic choices.
 | `anthropic/claude-sonnet-4-5-20250929` | alias | `anthropic/claude-sonnet-4-5` |
 | `anthropic/claude-sonnet-4-6` | parked | available, not yet routed |
 | `anthropic/claude-sonnet-5` | routed | daily driver; complementary native review |
+| `anthropic/claude-sonnet-5-5` | parked | available, not yet routed; one-million-token context |
+| `CRWV-LiteLLM/cw-kimi-k3` | parked | available, not yet routed; one-million-token context |
 | `devin/swe-1-6` | parked | available, not yet routed |
 | `devin/swe-1-7` | routed | long-horizon coding escalation |
 | `openai-codex/gpt-5.3-codex-spark` | parked | available, not yet routed |
 | `openai-codex/gpt-5.5` | parked | available, not yet routed |
-| `openai-codex/gpt-5.6-luna` | alias | `openai-codex/gpt-6-luna` |
-| `openai-codex/gpt-5.6-sol` | alias | `openai-codex/gpt-6-sol` |
+| `openai-codex/gpt-5.6-luna` | routed | cheap helper chores; model-paired review |
+| `openai-codex/gpt-5.6-sol` | routed | long-horizon coding escalation; model-paired review |
 | `openai-codex/gpt-5.6-terra` | routed | daily driver; complementary native review |
-| `openai-codex/gpt-6-astra` | routed | model-paired review |
-| `openai-codex/gpt-6-luna` | routed | cheap helper chores; model-paired review |
-| `openai-codex/gpt-6-sol` | routed | long-horizon coding escalation; model-paired review |
 | `WandB-Inference/deepseek-ai/DeepSeek-V3.1` | parked | available, not yet routed |
 | `WandB-Inference/deepseek-ai/DeepSeek-V4-Flash` | parked | available, not yet routed |
 | `WandB-Inference/deepseek-ai/DeepSeek-V4-Flash-0731` | parked | available, not yet routed; 262,144-token configured limit differs from V4 Flash |
