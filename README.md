@@ -21,19 +21,36 @@ live file; same inode), review the diff here, commit with intent.
 | `skills/` | `~/.agents/skills` (directory symlink) |
 | `herdr/config.toml` | `~/.config/herdr/config.toml` |
 | `zsh/agents.zsh` | `~/.oh-my-zsh/custom/agents.zsh` |
+| `tmux/tmux.conf` | `~/.tmux.conf` |
 | `shell/gitignore.d/50-agents` | `~/.config/git/ignore.d/` (fragment; see below) |
 
 Files are linked individually, never directories, because `~/.pi/agent`
 also holds runtime secrets (auth.json, models-store.json, mcp-oauth/,
-sessions/) that must stay untracked real files. `~/.agents/skills` is the
-one directory symlink; nothing else writes there.
+sessions/) and Pi's managed runtime (`install/` and `bin/pi`). They must stay
+untracked real files. `~/.agents/skills` is the one directory symlink; nothing
+else writes there.
+
+## Tmux
+
+`tmux/tmux.conf` loads tmux-resurrect and tmux-continuum through TPM. Install
+TPM once before starting tmux:
+
+```bash
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
+
+Start tmux, press `prefix + I` to install the configured plugins, then use
+`prefix + Ctrl-s` to save and `prefix + Ctrl-r` to restore. Continuum restores
+the last saved layout when the tmux server starts. Pane capture is enabled;
+saved output stays under `~/.tmux/resurrect/` and may contain secrets.
 
 ## Bootstrap (new machine)
 
 1. Install prerequisites: git, node/npm (Node 23+ preferred; older
    versions work via a fallback flag), oh-my-zsh, 1Password CLI (`op`),
-   pi (`brew install pi-coding-agent`), optional Herdr (`brew install herdr`),
-   and `pre-commit` + `gitleaks` (brew) for the secrets hook.
+   Pi (`curl -fsSL https://pi.dev/install.sh | sh`), optional Herdr
+   (`brew install herdr`), and `pre-commit` + `gitleaks` (brew) for the
+   secrets hook.
 2. Authenticate to GitHub (`gh auth login` or an SSH key), then
    `git clone git@github.com:tedski-coreweave/agent-dotfiles.git ~/src/agent-dotfiles`
 3. `cd ~/src/agent-dotfiles && ./install.sh` (use `--force` if real files
@@ -60,11 +77,25 @@ one directory symlink; nothing else writes there.
 
 - Repo -> machine: `git pull`. Rerun `./install.sh` only when files were
   added to the allowlist.
+- Pi runtime and extension packages: run `pi update --all`. Pi manages its
+  pinned core release under `~/.pi/agent/install/`; this repo continues to
+  manage extension package declarations and their lockfile under
+  `pi/agent/npm/`. Review any lockfile drift before committing.
 - Machine -> repo: runtime writes (pi bumping `lastChangelogVersion`,
   etc.) flow through the symlinks and show up as `git diff` here. Review,
   commit with intent (`chore: sync runtime drift` for mechanical churn),
   push only with the owner's approval.
 - Drift check: `./install.sh --check` (also run during weekly synthesis).
+
+### Migrate from Homebrew
+
+The managed Pi installer cannot replace Homebrew's `pi` link. Run
+`brew unlink pi-coding-agent`, then install Pi and verify that the managed
+install marker exists at `~/.pi/agent/install/managed-install.json`. Its
+canonical launcher is `~/.pi/agent/bin/pi`; the installer may add an
+`/opt/homebrew/bin/pi` symlink to it. Run `brew install node` before
+`brew uninstall pi-coding-agent` so Homebrew retains Pi's Node runtime. Open
+a new terminal, or run `exec zsh`, before checking the new launcher.
 
 ## Global gitignore
 

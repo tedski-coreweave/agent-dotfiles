@@ -1,9 +1,9 @@
 {
-  "lastChangelogVersion": "0.99.2",
+  "lastChangelogVersion": "1.1.0",
   "theme": "dark",
   "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.6-terra",
-  "defaultThinkingLevel": "medium",
+  "defaultModel": "gpt-6-luna",
+  "defaultThinkingLevel": "max",
   "packages": [
     "npm:pi-parallel-sessions",
     "npm:pi-mcp-adapter",
@@ -37,7 +37,7 @@
             "openai-codex/gpt-5.6-luna",
             "openai-codex/gpt-5.6-sol",
             "openai-codex/gpt-5.6-terra",
-            "WandB-Inference/deepseek-ai/DeepSeek-V4-Pro",
+            "WandB-Inference/deepseek-ai/DeepSeek-V4-Pro-0813",
             "WandB-Inference/moonshotai/Kimi-K2.7-Code"
           ]
         }

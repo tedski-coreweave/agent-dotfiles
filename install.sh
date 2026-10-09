@@ -36,6 +36,7 @@ LINKS=(
   "skills:$HOME/.agents/skills"
   "herdr/config.toml:$HOME/.config/herdr/config.toml"
   "zsh/agents.zsh:$HOME/.oh-my-zsh/custom/agents.zsh"
+  "tmux/tmux.conf:$HOME/.tmux.conf"
   "shell/gitignore.d/50-agents:$CONFIG_HOME/git/ignore.d/50-agents"
 )
 

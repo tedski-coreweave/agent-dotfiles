@@ -1,6 +1,10 @@
 # Agent harness environment. Deployed to ~/.oh-my-zsh/custom/agents.zsh
 # by ~/src/agent-dotfiles/install.sh (oh-my-zsh auto-sources custom/*.zsh).
 
+# Prefer Pi's managed launcher. Keep it first even when a parent shell added it later.
+path=("$HOME/.pi/agent/bin" ${path:#"$HOME/.pi/agent/bin"})
+export PATH
+
 # Powerlevel10k uses Nerd Font v3 glyphs. tmux obscures the terminal identity
 # pi-powerline uses for detection, so keep its icons enabled explicitly.
 export PI_NERD_FONTS=1

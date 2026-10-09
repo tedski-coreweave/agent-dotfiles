@@ -15,12 +15,12 @@ metadata in `pi/agent/models.json`.
 
 | Workload | Anthropic | OpenAI Codex | Devin | W&B Inference |
 | --- | --- | --- | --- | --- |
-| Daily driver | `anthropic/claude-sonnet-5`, medium | `openai-codex/gpt-5.6-terra`, medium | parked | `WandB-Inference/zai-org/GLM-5.2` |
+| Daily driver | `anthropic/claude-sonnet-5`, medium | `openai-codex/gpt-6-luna`, max | parked | `WandB-Inference/zai-org/GLM-5.2` |
 | Long-horizon coding escalation | `anthropic/claude-opus-5`, high/xhigh | `openai-codex/gpt-5.6-sol`, high | `devin/swe-1-7` | `WandB-Inference/moonshotai/Kimi-K2.7-Code`, `WandB-Inference/MiniMaxAI/MiniMax-M3` |
-| Model-paired native review | `anthropic/claude-haiku-4-5`, `anthropic/claude-sonnet-5`, `anthropic/claude-opus-5` | `openai-codex/gpt-5.6-luna`, `openai-codex/gpt-5.6-terra`, `openai-codex/gpt-5.6-sol` | parked | `WandB-Inference/deepseek-ai/DeepSeek-V4-Pro` |
+| Model-paired native review | `anthropic/claude-haiku-4-5`, `anthropic/claude-sonnet-5`, `anthropic/claude-opus-5` | `openai-codex/gpt-5.6-luna`, `openai-codex/gpt-5.6-terra`, `openai-codex/gpt-5.6-sol` | parked | `WandB-Inference/deepseek-ai/DeepSeek-V4-Pro-0813` |
 | Explicit third-leg review | — | — | — | `WandB-Inference/moonshotai/Kimi-K2.7-Code` |
-| Very large context analysis | `anthropic/claude-fable-5` | — | — | `WandB-Inference/deepseek-ai/DeepSeek-V4-Pro` |
-| Cheap helper chores | `anthropic/claude-haiku-4-5` | `openai-codex/gpt-5.6-luna` | parked | `WandB-Inference/Qwen/Qwen3.5-35B-A3B`, `WandB-Inference/openai/gpt-oss-120b` |
+| Very large context analysis | `anthropic/claude-fable-5` | — | — | `WandB-Inference/deepseek-ai/DeepSeek-V4-Pro-0813` |
+| Cheap helper chores | `anthropic/claude-haiku-4-5` | `openai-codex/gpt-5.6-luna` | parked | `WandB-Inference/openai/gpt-oss-120b` |
 
 The actual parent default lives in `pi/agent/settings.json`. This guide does
 not duplicate it.
@@ -40,6 +40,7 @@ invented peer ranking. Explicit review fanout may add the third leg above.
 | `anthropic/claude-fable-5-1` | `openai-codex/gpt-5.6-sol` |
 | `anthropic/claude-haiku-4-5` | `openai-codex/gpt-5.6-luna` |
 | `anthropic/claude-haiku-4-5-20251001` | `openai-codex/gpt-5.6-luna` |
+| `anthropic/claude-haiku-5-5` | `openai-codex/gpt-5.6-luna` |
 | `anthropic/claude-opus-4-5` | `openai-codex/gpt-5.6-sol` |
 | `anthropic/claude-opus-4-5-20251101` | `openai-codex/gpt-5.6-sol` |
 | `anthropic/claude-opus-4-6` | `openai-codex/gpt-5.6-sol` |
@@ -60,18 +61,14 @@ invented peer ranking. Explicit review fanout may add the third leg above.
 | `openai-codex/gpt-5.6-luna` | `anthropic/claude-sonnet-5` |
 | `openai-codex/gpt-5.6-sol` | `anthropic/claude-opus-5` |
 | `openai-codex/gpt-5.6-terra` | `anthropic/claude-sonnet-5` |
+| `openai-codex/gpt-6-luna` | `anthropic/claude-sonnet-5` |
 | `WandB-Inference/deepseek-ai/DeepSeek-V3.1` | `anthropic/claude-sonnet-5` |
-| `WandB-Inference/deepseek-ai/DeepSeek-V4-Flash` | `anthropic/claude-sonnet-5` |
 | `WandB-Inference/deepseek-ai/DeepSeek-V4-Flash-0731` | `anthropic/claude-sonnet-5` |
-| `WandB-Inference/deepseek-ai/DeepSeek-V4-Pro` | `anthropic/claude-opus-5` |
 | `WandB-Inference/deepseek-ai/DeepSeek-V4-Pro-0813` | `anthropic/claude-opus-5` |
 | `WandB-Inference/deepseek-ai/DeepSeek-V4.1-Flash` | `anthropic/claude-sonnet-5` |
 | `WandB-Inference/google/gemma-4-26B-A4B-it` | `anthropic/claude-sonnet-5` |
 | `WandB-Inference/google/gemma-4-31B-it` | `anthropic/claude-sonnet-5` |
-| `WandB-Inference/ibm-granite/granite-4.1-8b` | `anthropic/claude-sonnet-5` |
 | `WandB-Inference/ibm-granite/granite-4.2-8b` | `anthropic/claude-sonnet-5` |
-| `WandB-Inference/JetBrains/Mellum2-12B-A2.5B-Instruct` | `anthropic/claude-sonnet-5` |
-| `WandB-Inference/meta-llama/Llama-3.1-70B-Instruct` | `anthropic/claude-sonnet-5` |
 | `WandB-Inference/meta-llama/Llama-3.1-8B-Instruct` | `anthropic/claude-haiku-4-5` |
 | `WandB-Inference/meta-llama/Llama-3.3-70B-Instruct` | `anthropic/claude-sonnet-5` |
 | `WandB-Inference/MiniMaxAI/MiniMax-M3` | `anthropic/claude-opus-5` |
@@ -81,10 +78,6 @@ invented peer ranking. Explicit review fanout may add the third leg above.
 | `WandB-Inference/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B` | `anthropic/claude-sonnet-5` |
 | `WandB-Inference/openai/gpt-oss-120b` | `anthropic/claude-sonnet-5` |
 | `WandB-Inference/openai/gpt-oss-20b` | `anthropic/claude-haiku-4-5` |
-| `WandB-Inference/OpenPipe/Qwen3-14B-Instruct` | `anthropic/claude-haiku-4-5` |
-| `WandB-Inference/Qwen/Qwen3-30B-A3B-Instruct-2507` | `anthropic/claude-sonnet-5` |
-| `WandB-Inference/Qwen/Qwen3.5-35B-A3B` | `anthropic/claude-sonnet-5` |
-| `WandB-Inference/Qwen/Qwen3.6-27B` | `anthropic/claude-sonnet-5` |
 | `WandB-Inference/Qwen/Qwen3.6-35B-A3B` | `anthropic/claude-sonnet-5` |
 | `WandB-Inference/Qwen/Qwen3.8-27B` | `anthropic/claude-sonnet-5` |
 | `WandB-Inference/zai-org/GLM-5.2` | `anthropic/claude-sonnet-5` |
@@ -94,9 +87,8 @@ invented peer ranking. Explicit review fanout may add the third leg above.
 The table is policy carried out by the parent agent. `modelScope` rejects
 reviewer targets outside its finite approved set, but it cannot enforce which
 approved pair belongs to a parent. Omitting the per-run model inherits the
-parent. If that parent is also an approved review target, including the default
-`openai-codex/gpt-5.6-terra`, the mistake does not fail. The override is
-mandatory. Trusted project settings can replace the user scope.
+parent. If that parent is also an approved review target, the mistake does not
+fail. The override is mandatory. Trusted project settings can replace the user scope.
 
 ## Temporary matrix exclusions
 
@@ -108,7 +100,6 @@ use them.
 | Selector | Reason |
 | --- | --- |
 | `openai-codex/gpt-6-astra` | unavailable on the configured OpenAI API account |
-| `openai-codex/gpt-6-luna` | unavailable on the configured OpenAI API account |
 | `openai-codex/gpt-6-sol` | unavailable on the configured OpenAI API account |
 | `openai-codex/gpt-6.1-sol` | unavailable on the configured OpenAI API account |
 <!-- model-matrix-exclusions:end -->
@@ -127,6 +118,7 @@ selectable but are not automatic choices.
 | `anthropic/claude-fable-5-1` | alias | `anthropic/claude-fable-5` |
 | `anthropic/claude-haiku-4-5` | routed | cheap helper chores; model-paired review |
 | `anthropic/claude-haiku-4-5-20251001` | alias | `anthropic/claude-haiku-4-5` |
+| `anthropic/claude-haiku-5-5` | routed | cheap helper chores; model-paired review |
 | `anthropic/claude-opus-4-5` | parked | available, not yet routed |
 | `anthropic/claude-opus-4-5-20251101` | alias | `anthropic/claude-opus-4-5` |
 | `anthropic/claude-opus-4-6` | parked | available, not yet routed |
@@ -146,19 +138,15 @@ selectable but are not automatic choices.
 | `openai-codex/gpt-5.5` | parked | available, not yet routed |
 | `openai-codex/gpt-5.6-luna` | routed | cheap helper chores; model-paired review |
 | `openai-codex/gpt-5.6-sol` | routed | long-horizon coding escalation; model-paired review |
-| `openai-codex/gpt-5.6-terra` | routed | daily driver; complementary native review |
+| `openai-codex/gpt-5.6-terra` | routed | model-paired native review |
+| `openai-codex/gpt-6-luna` | routed | daily driver; complementary native review |
 | `WandB-Inference/deepseek-ai/DeepSeek-V3.1` | parked | available, not yet routed |
-| `WandB-Inference/deepseek-ai/DeepSeek-V4-Flash` | parked | available, not yet routed |
 | `WandB-Inference/deepseek-ai/DeepSeek-V4-Flash-0731` | parked | available, not yet routed; 262,144-token configured limit differs from V4 Flash |
-| `WandB-Inference/deepseek-ai/DeepSeek-V4-Pro` | routed | very large context analysis; model-paired review |
-| `WandB-Inference/deepseek-ai/DeepSeek-V4-Pro-0813` | alias | `WandB-Inference/deepseek-ai/DeepSeek-V4-Pro` |
+| `WandB-Inference/deepseek-ai/DeepSeek-V4-Pro-0813` | routed | very large context analysis; model-paired review |
 | `WandB-Inference/deepseek-ai/DeepSeek-V4.1-Flash` | parked | available, not yet routed |
 | `WandB-Inference/google/gemma-4-26B-A4B-it` | parked | available, not yet routed |
 | `WandB-Inference/google/gemma-4-31B-it` | parked | available, not yet routed |
-| `WandB-Inference/ibm-granite/granite-4.1-8b` | parked | available, not yet routed |
 | `WandB-Inference/ibm-granite/granite-4.2-8b` | parked | available, not yet routed |
-| `WandB-Inference/JetBrains/Mellum2-12B-A2.5B-Instruct` | parked | available, not yet routed |
-| `WandB-Inference/meta-llama/Llama-3.1-70B-Instruct` | parked | available, not yet routed |
 | `WandB-Inference/meta-llama/Llama-3.1-8B-Instruct` | parked | available, not yet routed |
 | `WandB-Inference/meta-llama/Llama-3.3-70B-Instruct` | parked | available, not yet routed |
 | `WandB-Inference/MiniMaxAI/MiniMax-M3` | routed | long-horizon coding escalation |
@@ -168,10 +156,6 @@ selectable but are not automatic choices.
 | `WandB-Inference/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B` | parked | available, not yet routed |
 | `WandB-Inference/openai/gpt-oss-120b` | routed | cheap helper chores |
 | `WandB-Inference/openai/gpt-oss-20b` | parked | available, not yet routed |
-| `WandB-Inference/OpenPipe/Qwen3-14B-Instruct` | parked | available, not yet routed |
-| `WandB-Inference/Qwen/Qwen3-30B-A3B-Instruct-2507` | parked | available, not yet routed |
-| `WandB-Inference/Qwen/Qwen3.5-35B-A3B` | routed | cheap helper chores |
-| `WandB-Inference/Qwen/Qwen3.6-27B` | parked | available, not yet routed |
 | `WandB-Inference/Qwen/Qwen3.6-35B-A3B` | parked | available, not yet routed |
 | `WandB-Inference/Qwen/Qwen3.8-27B` | parked | available, not yet routed |
 | `WandB-Inference/zai-org/GLM-5.2` | routed | daily driver |

@@ -93,6 +93,8 @@ Write comments that:
 
 Never write comments that:
 - narrate history or the edit
+- carry rollout, merge-order, or deploy-sequencing instructions; those belong in the PR
+  description or plan
 - address the reviewer or the conversation ("as requested")
 - restate what readable code already says, or paraphrase a signature
   into a docstring
