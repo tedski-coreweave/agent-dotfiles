@@ -36,6 +36,13 @@
       "approveTools": [
         "currents-delete-*"
       ]
+    },
+    "devin": {
+      "url": "https://mcp.devin.ai/mcp",
+      "auth": "bearer",
+      "bearerToken": "!op read 'op://Employee/Devin MCP API Key/credential'",
+      "description": "Create and manage Devin sessions.",
+      "approveTools": true
     }
   }
 }
