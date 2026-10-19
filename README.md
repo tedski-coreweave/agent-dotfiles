@@ -19,7 +19,6 @@ live file; same inode), review the diff here, commit with intent.
 | `pi/agent/extensions/attention-notify.ts` | `~/.pi/agent/extensions/` |
 | `pi/refresh-netskope-ca.sh` | `~/.pi/` |
 | `skills/` | `~/.agents/skills` (directory symlink) |
-| `herdr/config.toml` | `~/.config/herdr/config.toml` |
 | `zsh/agents.zsh` | `~/.oh-my-zsh/custom/agents.zsh` |
 | `tmux/tmux.conf` | `~/.tmux.conf` |
 | `shell/gitignore.d/50-agents` | `~/.config/git/ignore.d/` (fragment; see below) |
@@ -48,9 +47,8 @@ saved output stays under `~/.tmux/resurrect/` and may contain secrets.
 
 1. Install prerequisites: git, node/npm (Node 23+ preferred; older
    versions work via a fallback flag), oh-my-zsh, 1Password CLI (`op`),
-   Pi (`curl -fsSL https://pi.dev/install.sh | sh`), optional Herdr
-   (`brew install herdr`), and `pre-commit` + `gitleaks` (brew) for the
-   secrets hook.
+   Pi (`curl -fsSL https://pi.dev/install.sh | sh`), and `pre-commit` +
+   `gitleaks` (brew) for the secrets hook.
 2. Authenticate to GitHub (`gh auth login` or an SSH key), then
    `git clone git@github.com:tedski-coreweave/agent-dotfiles.git ~/src/agent-dotfiles`
 3. `cd ~/src/agent-dotfiles && ./install.sh` (use `--force` if real files
