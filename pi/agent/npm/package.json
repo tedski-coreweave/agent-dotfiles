@@ -3,10 +3,10 @@
   "private": true,
   "dependencies": {
     "pi-devin-provider": "^0.1.0",
-    "pi-mcp-adapter": "^5.3.0",
+    "pi-mcp-adapter": "^5.4.0",
     "pi-parallel-sessions": "^0.2.8",
     "pi-powerline": "^0.11.1",
     "pi-rewind": "^0.5.0",
-    "pi-subagents": "^0.78.0"
+    "pi-subagents": "^0.80.0"
   }
 }
