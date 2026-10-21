@@ -76,11 +76,14 @@ invented peer ranking. Explicit review fanout may add the third leg above.
 | `WandB-Inference/moonshotai/Kimi-K2.7-Code` | `anthropic/claude-opus-5` |
 | `WandB-Inference/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B` | `anthropic/claude-opus-5` |
 | `WandB-Inference/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B` | `anthropic/claude-sonnet-5` |
+| `WandB-Inference/nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B` | `anthropic/claude-sonnet-5` |
 | `WandB-Inference/openai/gpt-oss-120b` | `anthropic/claude-sonnet-5` |
 | `WandB-Inference/openai/gpt-oss-20b` | `anthropic/claude-haiku-4-5` |
 | `WandB-Inference/Qwen/Qwen3.6-35B-A3B` | `anthropic/claude-sonnet-5` |
 | `WandB-Inference/Qwen/Qwen3.8-27B` | `anthropic/claude-sonnet-5` |
+| `WandB-Inference/reflection/Beam-1.0-501B-A23B` | `anthropic/claude-opus-5` |
 | `WandB-Inference/zai-org/GLM-5.2` | `anthropic/claude-sonnet-5` |
+| `WandB-Inference/zai-org/GLM-5.3` | `anthropic/claude-sonnet-5` |
 | `WandB-Inference/zai-org/GLM-5.3-Flash` | `anthropic/claude-sonnet-5` |
 <!-- reviewer-routing:end -->
 
@@ -154,11 +157,14 @@ selectable but are not automatic choices.
 | `WandB-Inference/moonshotai/Kimi-K2.7-Code` | routed | long-horizon coding escalation; explicit third-leg review |
 | `WandB-Inference/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B` | parked | available, not yet routed |
 | `WandB-Inference/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B` | parked | available, not yet routed |
+| `WandB-Inference/nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B` | parked | available, not yet routed; one-million-token context |
 | `WandB-Inference/openai/gpt-oss-120b` | routed | cheap helper chores |
 | `WandB-Inference/openai/gpt-oss-20b` | parked | available, not yet routed |
 | `WandB-Inference/Qwen/Qwen3.6-35B-A3B` | parked | available, not yet routed |
 | `WandB-Inference/Qwen/Qwen3.8-27B` | parked | available, not yet routed |
+| `WandB-Inference/reflection/Beam-1.0-501B-A23B` | parked | available, not yet routed; one-million-token context |
 | `WandB-Inference/zai-org/GLM-5.2` | routed | daily driver |
+| `WandB-Inference/zai-org/GLM-5.3` | parked | available, not yet routed; one-million-token context |
 | `WandB-Inference/zai-org/GLM-5.3-Flash` | parked | available, not yet routed |
 <!-- model-catalog:end -->
 
