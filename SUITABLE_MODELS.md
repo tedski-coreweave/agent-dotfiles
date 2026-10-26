@@ -56,8 +56,6 @@ invented peer ranking. Explicit review fanout may add the third leg above.
 | `CRWV-LiteLLM/cw-kimi-k3` | `anthropic/claude-opus-5` |
 | `devin/swe-1-6` | `anthropic/claude-opus-5` |
 | `devin/swe-1-7` | `anthropic/claude-opus-5` |
-| `openai-codex/gpt-5.3-codex-spark` | `anthropic/claude-haiku-4-5` |
-| `openai-codex/gpt-5.5` | `anthropic/claude-sonnet-5` |
 | `openai-codex/gpt-5.6-luna` | `anthropic/claude-sonnet-5` |
 | `openai-codex/gpt-5.6-sol` | `anthropic/claude-opus-5` |
 | `openai-codex/gpt-5.6-terra` | `anthropic/claude-sonnet-5` |
@@ -137,8 +135,6 @@ selectable but are not automatic choices.
 | `CRWV-LiteLLM/cw-kimi-k3` | parked | available, not yet routed; one-million-token context |
 | `devin/swe-1-6` | parked | available, not yet routed |
 | `devin/swe-1-7` | routed | long-horizon coding escalation |
-| `openai-codex/gpt-5.3-codex-spark` | parked | available, not yet routed |
-| `openai-codex/gpt-5.5` | parked | available, not yet routed |
 | `openai-codex/gpt-5.6-luna` | routed | cheap helper chores; model-paired review |
 | `openai-codex/gpt-5.6-sol` | routed | long-horizon coding escalation; model-paired review |
 | `openai-codex/gpt-5.6-terra` | routed | model-paired native review |
