@@ -60,6 +60,7 @@ invented peer ranking. Explicit review fanout may add the third leg above.
 | `openai-codex/gpt-5.6-sol` | `anthropic/claude-opus-5` |
 | `openai-codex/gpt-5.6-terra` | `anthropic/claude-sonnet-5` |
 | `openai-codex/gpt-6-luna` | `anthropic/claude-sonnet-5` |
+| `openai-codex/gpt-6.1-terra` | `anthropic/claude-sonnet-5` |
 | `WandB-Inference/deepseek-ai/DeepSeek-V3.1` | `anthropic/claude-sonnet-5` |
 | `WandB-Inference/deepseek-ai/DeepSeek-V4-Flash-0731` | `anthropic/claude-sonnet-5` |
 | `WandB-Inference/deepseek-ai/DeepSeek-V4-Pro-0813` | `anthropic/claude-opus-5` |
@@ -140,6 +141,7 @@ selectable but are not automatic choices.
 | `openai-codex/gpt-5.6-sol` | routed | long-horizon coding escalation; model-paired review |
 | `openai-codex/gpt-5.6-terra` | routed | model-paired native review |
 | `openai-codex/gpt-6-luna` | routed | daily driver; complementary native review |
+| `openai-codex/gpt-6.1-terra` | parked | available, not yet routed |
 | `WandB-Inference/deepseek-ai/DeepSeek-V3.1` | parked | available, not yet routed |
 | `WandB-Inference/deepseek-ai/DeepSeek-V4-Flash-0731` | parked | available, not yet routed; 262,144-token configured limit differs from V4 Flash |
 | `WandB-Inference/deepseek-ai/DeepSeek-V4-Pro-0813` | routed | very large context analysis; model-paired review |
