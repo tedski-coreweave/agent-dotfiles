@@ -64,6 +64,7 @@ invented peer ranking. Explicit review fanout may add the third leg above.
 | `WandB-Inference/deepseek-ai/DeepSeek-V4-Flash-0731` | `anthropic/claude-sonnet-5` |
 | `WandB-Inference/deepseek-ai/DeepSeek-V4-Pro-0813` | `anthropic/claude-opus-5` |
 | `WandB-Inference/deepseek-ai/DeepSeek-V4.1-Flash` | `anthropic/claude-sonnet-5` |
+| `WandB-Inference/deepseek-ai/DeepSeek-V4.1-Flash-1017` | `anthropic/claude-sonnet-5` |
 | `WandB-Inference/google/gemma-4-26B-A4B-it` | `anthropic/claude-sonnet-5` |
 | `WandB-Inference/google/gemma-4-31B-it` | `anthropic/claude-sonnet-5` |
 | `WandB-Inference/ibm-granite/granite-4.2-8b` | `anthropic/claude-sonnet-5` |
@@ -143,6 +144,7 @@ selectable but are not automatic choices.
 | `WandB-Inference/deepseek-ai/DeepSeek-V4-Flash-0731` | parked | available, not yet routed; 262,144-token configured limit differs from V4 Flash |
 | `WandB-Inference/deepseek-ai/DeepSeek-V4-Pro-0813` | routed | very large context analysis; model-paired review |
 | `WandB-Inference/deepseek-ai/DeepSeek-V4.1-Flash` | parked | available, not yet routed |
+| `WandB-Inference/deepseek-ai/DeepSeek-V4.1-Flash-1017` | parked | available, not yet routed |
 | `WandB-Inference/google/gemma-4-26B-A4B-it` | parked | available, not yet routed |
 | `WandB-Inference/google/gemma-4-31B-it` | parked | available, not yet routed |
 | `WandB-Inference/ibm-granite/granite-4.2-8b` | parked | available, not yet routed |
