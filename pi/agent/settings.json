@@ -2,8 +2,8 @@
   "lastChangelogVersion": "1.5.0",
   "theme": "dark",
   "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-6-luna",
-  "defaultThinkingLevel": "max",
+  "defaultModel": "gpt-6.1-terra",
+  "defaultThinkingLevel": "medium",
   "packages": [
     "npm:pi-parallel-sessions",
     "npm:pi-mcp-adapter",

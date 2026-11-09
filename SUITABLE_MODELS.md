@@ -15,7 +15,7 @@ metadata in `pi/agent/models.json`.
 
 | Workload | Anthropic | OpenAI Codex | Devin | W&B Inference |
 | --- | --- | --- | --- | --- |
-| Daily driver | `anthropic/claude-sonnet-5`, medium | `openai-codex/gpt-6-luna`, max | parked | `WandB-Inference/zai-org/GLM-5.2` |
+| Daily driver | `anthropic/claude-sonnet-5`, medium | `openai-codex/gpt-6.1-terra`, medium | parked | `WandB-Inference/zai-org/GLM-5.2` |
 | Long-horizon coding escalation | `anthropic/claude-opus-5`, high/xhigh | `openai-codex/gpt-5.6-sol`, high | `devin/swe-1-7` | `WandB-Inference/moonshotai/Kimi-K2.7-Code`, `WandB-Inference/MiniMaxAI/MiniMax-M3` |
 | Model-paired native review | `anthropic/claude-haiku-4-5`, `anthropic/claude-sonnet-5`, `anthropic/claude-opus-5` | `openai-codex/gpt-5.6-luna`, `openai-codex/gpt-5.6-terra`, `openai-codex/gpt-5.6-sol` | parked | `WandB-Inference/deepseek-ai/DeepSeek-V4-Pro-0813` |
 | Explicit third-leg review | — | — | — | `WandB-Inference/moonshotai/Kimi-K2.7-Code` |
@@ -140,8 +140,8 @@ selectable but are not automatic choices.
 | `openai-codex/gpt-5.6-luna` | routed | cheap helper chores; model-paired review |
 | `openai-codex/gpt-5.6-sol` | routed | long-horizon coding escalation; model-paired review |
 | `openai-codex/gpt-5.6-terra` | routed | model-paired native review |
-| `openai-codex/gpt-6-luna` | routed | daily driver; complementary native review |
-| `openai-codex/gpt-6.1-terra` | parked | available, not yet routed |
+| `openai-codex/gpt-6-luna` | parked | former daily driver; max thinking over-explored loose ends |
+| `openai-codex/gpt-6.1-terra` | routed | daily driver, experimental trial at medium thinking |
 | `WandB-Inference/deepseek-ai/DeepSeek-V3.1` | parked | available, not yet routed |
 | `WandB-Inference/deepseek-ai/DeepSeek-V4-Flash-0731` | parked | available, not yet routed; 262,144-token configured limit differs from V4 Flash |
 | `WandB-Inference/deepseek-ai/DeepSeek-V4-Pro-0813` | routed | very large context analysis; model-paired review |
