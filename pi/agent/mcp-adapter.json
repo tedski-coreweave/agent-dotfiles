@@ -39,10 +39,16 @@
     },
     "devin": {
       "url": "https://mcp.devin.ai/mcp",
+      "headers": {
+        "X-Org-Id": "org_tBFsWkS4jw5bwDUn"
+      },
       "auth": "bearer",
       "bearerToken": "!op read 'op://Employee/Devin MCP API Key/credential'",
       "description": "Create and manage Devin sessions.",
       "approveTools": true
+    },
+    "mcp": {
+      "url": "https://mcp.app.wiz.io/"
     }
   }
 }
