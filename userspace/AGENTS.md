@@ -59,6 +59,8 @@ Modes never loosen approval gates.
 
 ## Git
 
+- Worktrees: prefer Worktrunk (`wt`) when available; use the `git-worktrees`
+  skill for creation, hooks, and safe cleanup. Git remains the fallback.
 - Branches: tedski/{fix,feat,chore}/<short-name>.
 - Commits: conventional prefix, short subject, body explains the WHY.
   The diff speaks to the what. Keep git log readable.

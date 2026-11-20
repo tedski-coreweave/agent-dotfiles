@@ -1,201 +1,84 @@
 ---
 name: git-worktrees
-description: Create, use, and clean up git worktrees. Use when asked to work in a worktree, run parallel work without branch switching, start isolated feature work, or remove/prune worktrees after a merge.
+description: Create, switch, inspect, and clean up Git worktrees with Worktrunk (wt). Use for isolated feature work, parallel work without branch switching, PR review, or removing and pruning worktrees after a merge.
 ---
 
-# Git Worktrees
+# Git worktrees
 
-## Overview
+Prefer Worktrunk (`wt`) for worktree operations. Use Git directly when `wt`
+is unavailable or for operations Worktrunk does not cover. Repository
+instructions and approval gates still apply.
 
-Git worktrees create isolated workspaces sharing the same repository, allowing
-work on multiple branches simultaneously without switching. Each worktree is a
-separate directory with its own working tree, but they share the same `.git`
-history.
-
-## When to Use Worktrees
-
-- **Parallel development**: Work on feature A while feature B builds/tests
-- **Code review**: Check out PR branch without disrupting current work
-- **Experiments**: Try something risky without affecting main workspace
-- **Long-running tasks**: Keep main branch available while feature develops
-
-## Quick Reference
-
-| Action | Command |
-|--------|---------|
-| List worktrees | `git worktree list` |
-| Create worktree | `git worktree add <path> -b <branch>` |
-| Create from existing branch | `git worktree add <path> <branch>` |
-| Remove worktree | `git worktree remove <path>` |
-| Prune stale worktrees | `git worktree prune` |
-
-## Creating Worktrees
-
-### New Feature Branch
-
-Branch naming follows the userspace convention:
-`tedski/{fix,feat,chore}/<short-name>`.
+## Inspect and create
 
 ```bash
-# Create worktree with new branch
-git worktree add .worktrees/my-feature -b tedski/feat/my-feature
-
-# Base it on the remote default branch rather than assuming main
-base=$(git symbolic-ref --short refs/remotes/origin/HEAD | sed 's|^origin/||')
-git worktree add .worktrees/my-feature -b tedski/feat/my-feature "origin/$base"
+wt list                         # Worktrees, paths, and status
+wt list --full                  # Include PR and CI information
+wt config show                  # Configuration and worktree path
+wt hook show                    # Commands that may run on switch or removal
+wt switch --create tedski/feat/my-feature
+wt switch --create tedski/fix/my-fix --base origin/main
+wt switch tedski/fix/existing   # Existing local or remote branch
+wt switch pr:123                # Existing PR branch
 ```
 
-### From Existing Branch
+Use the actual base requested by the task. `--create` defaults to the
+repository's default branch, not the current HEAD; use `--base @` to branch
+from the current worktree. Refresh remote refs only when appropriate. Branch
+names follow `tedski/{fix,feat,chore}/<short-name>`.
+
+Worktree paths come from Worktrunk configuration, not a fixed `.worktrees/`
+layout. Find the actual path with `wt list` or `git worktree list --porcelain`.
+`wt switch` needs shell integration to change an interactive shell's directory;
+a subprocess cannot change the agent's working directory. Use the discovered
+path explicitly with `cd` or `git -C` in subsequent commands. For automation,
+`wt switch --no-cd --format json` emits a structured result; consult the
+installed `wt switch --help` for its current options.
+
+Switching can run user and project hooks, including background hooks. Inspect
+`wt hook show` and repository setup instructions before running them. Do not
+bypass hook approval prompts with `--yes`. If a hook would violate a safety
+gate or its effects are unclear, resolve that first; `--no-hooks` is available
+when skipping setup is appropriate. Follow the repository's documented setup,
+including submodule initialization where needed. Never update submodule
+pointers unless that is the task.
+
+Do not blanket-copy ignored files or run `wt step copy-ignored`: they may
+contain credentials. If setup requires a specific file, copy only that file
+deliberately from the main worktree after checking the source and destination.
+
+## Remove
+
+Inspect the target's work, including untracked and ignored files that removal
+would discard. Check nested submodules for local work too. Never remove a dirty
+worktree without confirmation, and never discard local work implicitly.
 
 ```bash
-# Check out existing remote branch
-git worktree add .worktrees/pr-review origin/fix-bug
-
-# Check out existing local branch
-git worktree add .worktrees/hotfix tedski/fix/urgent-thing
+wt list
+git -C <worktree-path> status --short --untracked-files=all
+git -C <worktree-path> status --short --ignored
+wt hook show
+wt remove --foreground --no-delete-branch <branch-or-path>
 ```
 
-## Directory Structure
+`wt remove` normally deletes a branch it considers integrated, including
+squash-merged branches. Use `--no-delete-branch` to preserve it, particularly
+for unmerged work. Delete a merged branch separately only when cleanup is in
+scope. Removal normally runs in the background; `--foreground` waits for the
+result. Do not use `--force`, `--force-delete`, `--reap`, or bulk
+`wt step prune` without understanding and authorization for their effects.
 
-```
-project/
-├── .git/                    # Shared git history
-├── .worktrees/              # Convention: keep worktrees here
-│   ├── feature-a/           # First worktree
-│   └── feature-b/           # Second worktree
-└── src/                     # Main worktree files
-```
+For a stale worktree whose directory is already gone, inspect
+`git worktree list --porcelain`, then use `git worktree prune` as appropriate.
+For a locked worktree or an occupied target path, investigate the owner and
+contents instead of forcing removal or creation.
 
-## Setup After Creating Worktree
+## Integration
 
-After creating a worktree, you typically need to:
+`wt merge` can commit, rebase, squash, merge, run hooks, and remove the
+worktree. It is not a shortcut around the explicit approval gate for merging,
+pushing, or external posts. Inspect `wt merge --help` and configured hooks
+before using it, and use only the operations authorized for the task.
 
-```bash
-cd .worktrees/my-feature
-```
-
-Follow the repository's own setup instructions (its README or
-AGENTS.md) for dependencies and configuration. A fresh worktree has no
-ignored files, so anything gitignored has to come from that documented
-setup.
-
-Do not blanket-copy environment files between worktrees. They usually
-hold credentials, and copying them scatters secrets into new
-directories. If a specific file is required, copy that one file
-deliberately, from the main worktree root:
-
-```bash
-# From .worktrees/<name>, the main worktree root is two levels up
-cp ../../.env.local .env.local
-```
-
-## Safety Rules
-
-**NEVER remove a worktree with uncommitted changes without confirmation.**
-
-```bash
-# Check for uncommitted changes first
-git -C .worktrees/my-feature status --porcelain
-
-# If empty, safe to remove
-git worktree remove .worktrees/my-feature
-
-# Delete the branch after merge (-d is safe, fails if not merged)
-git branch -d tedski/feat/my-feature
-```
-
-### Removal Decision Matrix
-
-| PR merged? | Uncommitted changes? | Action |
-|------------|----------------------|--------|
-| Yes | No | Safe to remove |
-| Yes | Yes | Ask first, uncommitted changes are lost |
-| No | No | Removing the worktree is safe, committed branch history survives. Keep the branch; do not delete it |
-| No | Yes | Do not remove, active uncommitted work |
-
-Removing a worktree deletes the directory, not the branch. Commits on
-that branch remain in the repository, so an unmerged but clean worktree
-can be removed and recreated later. Only uncommitted work is at risk.
-
-## Cleaning Up Worktrees
-
-### Manual Cleanup
-
-```bash
-# 1. Check if work is merged (if using GitHub)
-gh pr list --head tedski/feat/my-feature --state merged
-
-# 2. Check for uncommitted changes
-git -C .worktrees/my-feature status --porcelain
-
-# 3. Remove worktree (only if merged or confirmed with user)
-git worktree remove .worktrees/my-feature
-
-# 4. Delete branch (-d refuses when unmerged, which is the safety net)
-git branch -d tedski/feat/my-feature
-```
-
-### Prune Stale Worktrees
-
-If a worktree directory was deleted manually:
-
-```bash
-git worktree prune
-```
-
-## Common Patterns
-
-### Review a PR
-
-```bash
-# Create worktree from PR branch
-git fetch origin pull/123/head:pr-123
-git worktree add .worktrees/pr-123 pr-123
-
-# Review, test, then clean up
-git worktree remove .worktrees/pr-123
-git branch -D pr-123
-```
-
-### Parallel Feature Development
-
-```bash
-# Main work continues in project root
-# Start new feature in worktree
-git worktree add .worktrees/new-api -b tedski/feat/new-api
-
-# Work on both simultaneously
-code .worktrees/new-api  # Opens new VS Code window
-```
-
-## Troubleshooting
-
-### "Branch already checked out"
-
-A branch can only be checked out in one worktree at a time:
-
-```bash
-# Find where branch is checked out
-git worktree list
-
-# Remove that worktree first, or use different branch
-```
-
-### "Worktree directory not empty"
-
-```bash
-# Force add if directory exists but isn't a worktree
-git worktree add --force <path> <branch>
-```
-
-### Locked Worktree
-
-If a worktree is locked (prevents accidental removal):
-
-```bash
-# Unlock it
-git worktree unlock <path>
-
-# Then remove
-git worktree remove <path>
-```
+For submodule fetch failures in linked worktrees, use the
+`git-worktree-submodule-fetch-repair` skill.
